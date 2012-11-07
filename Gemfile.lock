@@ -1,0 +1,366 @@
+GIT
+  remote: git://github.com/kristianmandrup/classy_enum-mongoid.git
+  revision: 095a03b39a26bd332ac923fa35709d0072995b5a
+  specs:
+    classy_enum-mongoid (0.0.2)
+      classy_enum (>= 3.0.1)
+      mongoid (>= 2.1)
+
+GIT
+  remote: git://github.com/kristianmandrup/phone.git
+  revision: e8d6bdc9d02d34284b282bd23ec0d55a27494b8c
+  specs:
+    phone (1.1)
+
+GIT
+  remote: git://github.com/kristianmandrup/rails-validators.git
+  revision: 4ead36250c6245b00ad7550b8fb44359e96b45e8
+  specs:
+    rails-validators (0.1.1)
+      mail
+
+GIT
+  remote: git://github.com/mauriciozaffari/mongoid_search.git
+  revision: be9cb95709ae8618aef94023a7abd3e2633a1162
+  specs:
+    mongoid_search (0.3.0)
+      fast-stemmer (~> 1.0.0)
+      mongoid (>= 3.0.0)
+
+PATH
+  remote: .
+  specs:
+    rent_search (0.0.1)
+      rails (~> 3.2.8)
+
+PATH
+  remote: /Users/kmandrup/private/repos/Google-Maps-for-Rails
+  specs:
+    gmaps4rails (1.5.5)
+
+PATH
+  remote: /Users/kmandrup/private/repos/Ruby-Data-Structures
+  specs:
+    RubyDataStructures (1.1.0)
+
+PATH
+  remote: /Users/kmandrup/private/repos/classy_enum
+  specs:
+    classy_enum (3.1.1)
+      rails (>= 3.0)
+
+PATH
+  remote: /Users/kmandrup/private/repos/company/engines/rent_core
+  specs:
+    rent_core (0.0.1)
+      rails (~> 3.2.8)
+
+PATH
+  remote: /Users/kmandrup/private/repos/company/engines/rent_property
+  specs:
+    rent_property (0.0.1)
+      rails (~> 3.2.8)
+
+PATH
+  remote: /Users/kmandrup/private/repos/ffaker
+  specs:
+    ffaker (1.14.1)
+
+PATH
+  remote: /Users/kmandrup/private/repos/jquery-ui-rails-helpers
+  specs:
+    jquery_ui_rails_helpers (0.2.0)
+      haml
+
+PATH
+  remote: /Users/kmandrup/private/repos/sugar-high
+  specs:
+    sugar-high (0.7.3)
+
+PATH
+  remote: /Users/kmandrup/private/repos/timespan
+  specs:
+    timespan (0.5.1)
+      activesupport (>= 3.0.0)
+      chronic
+      chronic_duration
+      spanner
+      sugar-high (~> 0.7.2)
+      xduration (~> 2.2)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    actionmailer (3.2.8)
+      actionpack (= 3.2.8)
+      mail (~> 2.4.4)
+    actionpack (3.2.8)
+      activemodel (= 3.2.8)
+      activesupport (= 3.2.8)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      journey (~> 1.0.4)
+      rack (~> 1.4.0)
+      rack-cache (~> 1.2)
+      rack-test (~> 0.6.1)
+      sprockets (~> 2.1.3)
+    activemodel (3.2.8)
+      activesupport (= 3.2.8)
+      builder (~> 3.0.0)
+    activerecord (3.2.8)
+      activemodel (= 3.2.8)
+      activesupport (= 3.2.8)
+      arel (~> 3.0.2)
+      tzinfo (~> 0.3.29)
+    activeresource (3.2.8)
+      activemodel (= 3.2.8)
+      activesupport (= 3.2.8)
+    activesupport (3.2.8)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    addressable (2.3.2)
+    ajaxify_rails (0.1.2)
+      rails (>= 3.1.0)
+    arel (3.0.2)
+    awesome_print (1.1.0)
+    builder (3.0.3)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    childprocess (0.3.5)
+      ffi (~> 1.0, >= 1.0.6)
+    chronic (0.8.0)
+    chronic_duration (0.9.6)
+      numerizer (~> 0.1.1)
+    colorize (0.5.8)
+    concerned (0.1.4)
+    cutter (0.8.9)
+      colorize (>= 0.5)
+    database_cleaner (0.8.0)
+    delorean (1.1.1)
+      chronic
+    diff-lcs (1.1.3)
+    erubis (2.7.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
+    fakeweb (1.3.0)
+    fast-stemmer (1.0.1)
+    ffi (1.1.5)
+    formtastic (2.2.1)
+      actionpack (>= 3.0)
+    geo_calc (0.7.7.1)
+      activesupport (>= 3.0.1)
+      geo_units (>= 0.3.1.1)
+      i18n (>= 0.5)
+      require_all (>= 1.2.0)
+      sugar-high (>= 0.6.0)
+      sweetloader
+    geo_point (0.2.6)
+      geo_calc (>= 0.7.7.1)
+    geo_units (0.3.1.1)
+      activesupport
+      i18n
+      sugar-high (>= 0.6.0)
+      sweetloader
+    geo_vectors (0.6.1)
+      activesupport (>= 3)
+      geo_calc (>= 0.5.4)
+      geo_calc (~> 0.7.0)
+      proxy_party (>= 0.2.1)
+      proxy_party (~> 0.2.1)
+      sugar-high (>= 0.4.1)
+      sugar-high (>= 0.4.5)
+    geocoder (1.1.3)
+    growl (1.0.3)
+    haml (3.1.7)
+    hashie (1.2.0)
+    hike (1.2.1)
+    i18n (0.6.1)
+    interactive_editor (0.0.10)
+      spoon (>= 0.0.1)
+    journey (1.0.4)
+    jquery-rails (2.1.2)
+      railties (>= 3.1.0, < 5.0)
+      thor (~> 0.14)
+    json (1.7.5)
+    json_pure (1.7.5)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
+    libwebsocket (0.1.5)
+      addressable
+    mail (2.4.4)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.19)
+    mongoid (3.0.6)
+      activemodel (~> 3.1)
+      moped (~> 1.1)
+      origin (~> 1.0)
+      tzinfo (~> 0.3.22)
+    mongoid-rspec (1.5.4)
+      mongoid (>= 3.0.1)
+      rake
+      rspec (>= 2.9)
+    mongoid_geospatial (2.5.1)
+      activesupport (~> 3.2)
+      mongoid (>= 3.0.0)
+    moped (1.2.2)
+    multi_json (1.3.6)
+    nokogiri (1.5.5)
+    numerizer (0.1.1)
+    origin (1.0.8)
+    origin-selectable_ext (0.1.1)
+      origin
+    polyglot (0.3.3)
+    proxy_party (0.2.2)
+      sugar-high (>= 0.3.5)
+    rack (1.4.1)
+    rack-cache (1.2)
+      rack (>= 0.4)
+    rack-ssl (1.3.2)
+      rack
+    rack-test (0.6.1)
+      rack (>= 1.0)
+    rails (3.2.8)
+      actionmailer (= 3.2.8)
+      actionpack (= 3.2.8)
+      activerecord (= 3.2.8)
+      activeresource (= 3.2.8)
+      activesupport (= 3.2.8)
+      bundler (~> 1.0)
+      railties (= 3.2.8)
+    rails_config_loader (0.1.5)
+      hashie
+      json_pure
+    railties (3.2.8)
+      actionpack (= 3.2.8)
+      activesupport (= 3.2.8)
+      rack-ssl (~> 1.3.2)
+      rake (>= 0.8.7)
+      rdoc (~> 3.4)
+      thor (>= 0.14.6, < 2.0)
+    rake (0.9.2.2)
+    rdoc (3.12)
+      json (~> 1.4)
+    redis (3.0.1)
+    require_all (1.2.1)
+    rgeo (0.3.17)
+    rspec (2.11.0)
+      rspec-core (~> 2.11.0)
+      rspec-expectations (~> 2.11.0)
+      rspec-mocks (~> 2.11.0)
+    rspec-core (2.11.1)
+    rspec-expectations (2.11.3)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.11.2)
+    rspec-rails (2.11.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.11.0)
+    ruby-stemmer (0.9.3)
+    rubyzip (0.9.9)
+    selenium-webdriver (2.25.0)
+      childprocess (>= 0.2.5)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
+    shoulda (3.1.1)
+      shoulda-context (~> 1.0)
+      shoulda-matchers (~> 1.2)
+    shoulda-context (1.0.0)
+    shoulda-matchers (1.3.0)
+      activesupport (>= 3.0.0)
+    spanner (0.0.2)
+    spoon (0.0.1)
+    spork (1.0.0rc3)
+    spork-rails (3.2.0)
+      rails (>= 3.0.0, < 3.3.0)
+      spork (>= 1.0rc0)
+    sprockets (2.1.3)
+      hike (~> 1.2)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
+    sweetloader (0.1.6)
+      activesupport (>= 3.0.1)
+      i18n
+    thor (0.16.0)
+    tilt (1.3.3)
+    timeliness (0.3.6)
+    treetop (1.4.10)
+      polyglot
+      polyglot (>= 0.3.1)
+    tzinfo (0.3.33)
+    validates_timeliness (3.0.14)
+      timeliness (~> 0.3.6)
+    validators (1.0.0)
+    wirble (0.1.3)
+    xduration (2.2.3)
+      activesupport (>= 3.0.0)
+      i18n
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  RubyDataStructures!
+  ajaxify_rails
+  awesome_print
+  capybara (>= 1.1.2)
+  classy_enum!
+  classy_enum-mongoid!
+  concerned (~> 0.1.4)
+  cutter (~> 0.8.2)
+  database_cleaner (~> 0.8)
+  delorean (~> 1.1.1)
+  factory_girl_rails
+  fakeweb
+  fast-stemmer
+  ffaker (~> 1.14.1)!
+  formtastic
+  geo_calc
+  geo_point
+  geo_vectors
+  geocoder
+  gmaps4rails!
+  growl (>= 1.0.3)
+  haml
+  interactive_editor
+  jquery-rails
+  jquery_ui_rails_helpers!
+  kaminari
+  mongoid (>= 3.0)
+  mongoid-rspec (~> 1.5)
+  mongoid_geospatial (~> 2.5.0)
+  mongoid_search (>= 0.3.0)!
+  origin-selectable_ext
+  phone (~> 1.1)!
+  rails-validators (~> 0.1.1)!
+  rails_config_loader (~> 0.1.4)
+  redis
+  rent_core!
+  rent_property!
+  rent_search!
+  rgeo
+  rspec-rails (> 2.9)
+  ruby-stemmer
+  shoulda
+  shoulda-matchers
+  spork-rails (~> 3.2.0)
+  sugar-high (~> 0.7.3)!
+  timespan (~> 0.5.1)!
+  validates_timeliness
+  validators
+  wirble

@@ -1,0 +1,211 @@
+Example factories:
+https://github.com/thoughtbot/factory_girl/wiki/Example-factories.rb-file
+
+Use evaluator syntax:
+
+evaluator.message_count
+
+https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md
+
+Defining factories
+Each factory has a name and a set of attributes. The name is used to guess the class of the object by default, but it's possible to explicitly specify it:
+
+# This will guess the User class
+FactoryGirl.define do
+  factory :user do
+    first_name 'John'
+    last_name  'Doe'
+    admin false
+  end
+
+  # This will use the User class (Admin would have been guessed)
+  factory :admin, :class => User do
+    first_name 'Admin'
+    last_name  'User'
+    admin true
+  end
+
+  # The same, but using a string instead of class constant
+  factory :admin, :class => 'user' do
+    first_name 'Admin'
+    last_name  'User'
+    admin true
+  end
+end
+It is highly recommended that you have one factory for each class that provides the simplest set of attributes necessary to create an instance of that class. If you're creating ActiveRecord objects, that means that you should only provide attributes that are required through validations and that do not have defaults. Other factories can be created through inheritance to cover common scenarios for each class.
+
+Attempting to define multiple factories with the same name will raise an error.
+
+Factories can be defined anywhere, but will be automatically loaded if they are defined in files at the following locations:
+
+test/factories.rb
+spec/factories.rb
+test/factories/*.rb
+spec/factories/*.rb
+Using factories
+factory_girl supports several different build strategies: build, create, attributes_for and stub:
+
+# Returns a User instance that's not saved
+user = FactoryGirl.build(:user)
+
+# Returns a saved User instance
+user = FactoryGirl.create(:user)
+
+# Returns a hash of attributes that can be used to build a User instance
+attrs = FactoryGirl.attributes_for(:user)
+
+# Returns an object with all defined attributes stubbed out
+stub = FactoryGirl.build_stubbed(:user)
+
+# Passing a block to any of the methods above will yield the return object
+FactoryGirl.create(:user) do |user|
+  user.posts.create(attributes_for(:post))
+end
+No matter which strategy is used, it's possible to override the defined attributes by passing a hash:
+
+# Build a User instance and override the first_name property
+user = FactoryGirl.build(:user, :first_name => 'Joe')
+user.first_name
+# => "Joe"
+If repeating "FactoryGirl" is too verbose for you, you can mix the syntax methods in:
+
+# rspec
+RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+end
+
+# Test::Unit
+class Test::Unit::TestCase
+  include FactoryGirl::Syntax::Methods
+end
+This would allow you to write:
+
+describe User, "#full_name" do
+  subject { create(:user, :first_name => "John", :last_name => "Doe") }
+
+  its(:full_name) { should == "John Doe" }
+end
+Lazy Attributes
+Most factory attributes can be added using static values that are evaluated when the factory is defined, but some attributes (such as associations and other attributes that must be dynamically generated) will need values assigned each time an instance is generated. These "lazy" attributes can be added by passing a block instead of a parameter:
+
+factory :user do
+  # ...
+  activation_code { User.generate_activation_code }
+  date_of_birth   { 21.years.ago }
+end
+Aliases
+Aliases allow you to use named associations more easily.
+
+factory :user, :aliases => [:author, :commenter] do
+  first_name    "John"
+  last_name     "Doe"
+  date_of_birth { 18.years.ago }
+end
+
+factory :post do
+  author
+  # instead of
+  # association :author, :factory => :user
+  title "How to read a book effectively"
+  body  "There are five steps involved."
+end
+
+factory :comment do
+  commenter
+  # instead of
+  # association :commenter, :factory => :user
+  body "Great article!"
+end
+
+Dependent Attributes:
+Attributes can be based on the values of other attributes using the evaluator that is yielded to lazy attribute blocks:
+
+factory :user do
+  first_name 'Joe'
+  last_name  'Blow'
+  email { "#{first_name}.#{last_name}@example.com".downcase }
+end
+
+FactoryGirl.create(:user, :last_name => 'Doe').email
+
+---
+
+factory :user do
+  ignore do
+    rockstar true
+    upcased { false }
+  end
+
+  name  { "John Doe#{" - Rockstar" if rockstar}" }
+  email { "#{name.downcase}@example.com" }
+
+  after(:create) do |user, evaluator|
+    user.name.upcase! if evaluator.upcased
+  end
+end
+
+Associations
+It's possible to set up associations within factories. If the factory name is the same as the association name, the factory name can be left out.
+
+factory :post do
+  # ...
+  author
+end
+You can also specify a different factory or override attributes:
+
+factory :post do
+  # ...
+  association :author, :factory => :user, :last_name => 'Writely'
+end
+
+Inheritance
+You can easily create multiple factories for the same class without repeating common attributes by nesting factories:
+
+factory :post do
+  title 'A title'
+
+  factory :approved_post do
+    approved true
+  end
+end
+
+Sequences
+Unique values in a specific format (for example, e-mail addresses) can be generated using sequences. Sequences are defined by calling sequence in a definition block, and values in a sequence are generated by calling FactoryGirl.generate:
+
+# Defines a new sequence
+FactoryGirl.define do
+  sequence :email do |n|
+    "person#{n}@example.com"
+  end
+end
+
+FactoryGirl.generate :email
+# => "person1@example.com"
+
+FactoryGirl.generate :email
+# => "person2@example.com"
+Sequences can be used as attributes:
+
+factory :user do
+  email
+end
+Or in lazy attributes:
+
+factory :invite do
+  invitee { FactoryGirl.generate(:email) }
+end
+And it's also possible to define an in-line sequence that is only used in a particular factory:
+
+factory :user do
+  sequence(:email) {|n| "person#{n}@example.com" }
+end
+You can also override the initial value:
+
+factory :user do
+  sequence(:email, 1000) {|n| "person#{n}@example.com" }
+end
+Without a block, the value will increment itself, starting at its initial value:
+
+factory :post do
+  sequence(:position)
+end

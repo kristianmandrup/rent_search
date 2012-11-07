@@ -1,0 +1,72 @@
+property:
+  type:
+    room: room
+    apartment: apartment
+    town_house: town house
+    independent_house: independent_house
+    office: office
+    house_boat: house boat
+  rooms:
+    one: one
+    two: two
+    three: three
+    four: four
+    five: five
+    six: six
+    seven: seven or more
+  whiteware:
+    fridge: fridge/freezer
+    cook: oven/cooking
+    dish_washer: dish washer
+    washing_machine: washing machine
+    dryer: dryer
+  facilities:
+    swimming_pool: swimming pool
+    garden: garden
+    BBQ: barbeque
+    terrace: terrace
+    balcony: balcony
+  for_vehicle:
+    bike_shed: bike shed
+    car_parking: car parking
+    garage: garage
+  equipment:
+    air_con: air con
+    heating_system: heating system
+    fireplace: fireplace
+    dgl_windows: double glassed windows
+  whiteware:
+    fridge: fridge/freezer
+    cook: oven/cooking
+    dish_washer: dish washer
+    washing_machine: washing machine
+    dryer: dryer
+  climatization:
+    dgl_windows: double glassed windows
+    air_conditioning: air conditioning
+    heating_system: heating system
+    fire_place: fire place
+  interior:
+    lift: lift
+    laundry_room: laundry room
+    sauna: sauna
+    office: office
+    home_cinema_room: home cinema room
+  exterior:
+    swimming_pool: swimming pool
+    garden: garden
+    terrace: terrace
+    balcony: balcony
+  parking:
+    bike_shed: bike shed
+    car_parking: car parking
+    garage: garage
+  media:
+    tv: tv
+    music_system: music system
+    dvd_player: dvd player
+    internet: internet
+    phone: phone
+  rules:
+    no_smoking: no smoking
+    no_pets: no pets

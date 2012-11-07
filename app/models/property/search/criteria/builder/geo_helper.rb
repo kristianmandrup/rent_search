@@ -1,0 +1,9 @@
+class Property::Criteria
+  class GeoHelper
+    def calc_point address
+      result = Geocoder.search(address)[0]
+      raise Property::Criteria::GeoCodeError, "No geo location could be found for address: #{address}" if result.nil?
+      [result.longitude, result.latitude]
+    end
+  end
+end

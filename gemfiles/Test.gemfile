@@ -1,0 +1,37 @@
+group :test do
+  # spec notifications
+  # gem 'rb-fsevent',   '>= 0.4.3.1', :require => false
+  gem 'growl',        '>= 1.0.3'
+
+  gem 'wirble',             :require => false   # Saved irb history, colors etc.
+  gem 'awesome_print',      :require => false   # Like Pretty Print but more awesome
+  gem 'interactive_editor', :require => false   # Edit irb commands in a real editor
+
+  gem 'rspec-rails',  '> 2.9'
+  gem "capybara",     ">= 1.1.2"
+  
+  # time travel
+  # gem 'timecop',  '~> 0.3.5', :git => 'git://github.com/change/timecop.git'
+  gem 'delorean', '~> 1.1.1'
+
+  gem 'cutter',   '~> 0.8.2'
+
+  # data store
+  gem 'database_cleaner',   '~> 0.8'
+
+  # factory
+  # gem 'factory_girl',       '>= 2.0.1', :git => 'git://github.com/kristianmandrup/factory_girl.git'
+  gem 'factory_girl_rails'
+
+  # Fake data
+  gem 'ffaker', '~> 1.14.1', :path => '/Users/kmandrup/private/repos/ffaker' # :git => 'git://github.com/kristianmandrup/ffaker.git'
+  gem 'fakeweb'
+
+  gem 'shoulda'         
+  gem 'shoulda-matchers'
+
+  # http://railsapps.github.com/tutorial-rails-mongoid-devise.html
+  gem 'mongoid-rspec', '~> 1.5'
+
+  gem 'spork-rails', '~> 3.2.0'
+end 
