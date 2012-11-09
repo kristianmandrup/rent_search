@@ -1,10 +1,7 @@
-module Search::Sorter
+class Search::Sorter
   class Mapper
     # maps field::direction to field and direction
     attr_reader :sort_field, :sort_direction, :separator, :parser_type
-
-    # After mapping the sorting values can be displayed!
-    include_concerns :displayer
 
     # sorting is a string in the form
     #   sort_field::sort_direction or sort_direction::sort_field

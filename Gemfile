@@ -50,7 +50,13 @@ gem 'geo_point'
 gem 'geo_vectors'
 
 gem 'geocoder' #, :path => '/Users/kmandrup/private/repos/geocoder' # :git => 'git://github.com/kristianmandrup/geocoder.git', :branch => 'mongoid_geospatial'
-gem 'mongoid_geospatial', '~> 2.5.0'
+gem 'mongoid_geospatial', '>= 2.7.0', github: 'kristianmandrup/mongoid_geospatial'
+
+gem 'dbf'
+gem 'georuby'
+gem 'geonames_local', github: 'nofxx/geonames_local' # Downloads and store Geonames.org data locally
+
+gem 'symbolize', '~> 4.2', github: 'nofxx/symbolize'
 
 # UI
 gem 'formtastic'

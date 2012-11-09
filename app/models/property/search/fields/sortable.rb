@@ -1,4 +1,4 @@
-class Property::Search
+module Property::Search::Fields
   module Sortable
     extend ActiveSupport::Concern
 

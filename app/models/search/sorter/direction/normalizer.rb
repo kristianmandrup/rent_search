@@ -1,12 +1,11 @@
-module Search::Sorter
-
+module Search::Sorter::Direction
   # Can normalize the Sort direction for a sort field
   # Will try to reverse the direction if the direction is not valid for the field
-  module DirectionNormalizer
+  module Normalizer
     extend ActiveSupport::Concern
 
     included do
-      include_concerns :reverser, for: 'Search::Sorter'      
+      include_concerns :reverser, for: 'Search::Sorter::Direction'      
     end
 
     def normalize!

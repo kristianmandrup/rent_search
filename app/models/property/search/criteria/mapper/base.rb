@@ -1,5 +1,5 @@
 class Property::Search::Criteria::Mapper
-  class Simple < Base
+  class Base
     include Property::Search::Preferences::Validator
 
     attr_reader :criteria_hash, :preferences

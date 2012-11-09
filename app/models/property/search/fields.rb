@@ -4,7 +4,7 @@ class Property::Search
 
     included do
       shared_concerns  :currency, :size_unit
-      include_concerns :sortable, :validations, :type_mapping
+      include_concerns :sortable, for: 'Property::Search'
     end
   end
 end

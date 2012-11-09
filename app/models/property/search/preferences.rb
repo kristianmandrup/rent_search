@@ -1,6 +1,6 @@
-class Property::Criteria
+class Property::Search
   class Preferences
-    include ActiveModel::Validators
+    include ActiveModel::Validations
 
     attr_reader :area_unit, :currency
 

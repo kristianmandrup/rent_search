@@ -1,4 +1,4 @@
-class Property::Criteria::Filter
+class Property::Search::Criteria::Filter
   class RangeCounter < FieldCounter
     def range_field_limits hash
       hash.inject({}) do |res, (field, options)|

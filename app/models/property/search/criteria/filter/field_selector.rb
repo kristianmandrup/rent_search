@@ -1,4 +1,4 @@
-class Property::Criteria::Filter
+class Property::Search::Criteria::Filter
   class FieldSelector
     attr_reader :property_list
 

@@ -58,7 +58,7 @@ class Searcher
 
   # The builder used to build a Search model from a criteria hash
   def search_builder
-    @search_builder = ||= builder_class.new options
+    @search_builder ||= builder_class.new options
   end  
 
   # Executes a Search returning a Mongoid Criteria (result)

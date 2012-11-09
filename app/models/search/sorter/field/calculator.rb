@@ -1,5 +1,5 @@
-class Search::Sorter
-  class FieldCalculator
+module Search::Sorter::Field
+  class Calculator
     attr_reader :sort_field, :sort_direction
 
     # Calculate the sort field

@@ -1,7 +1,6 @@
-module Search::Sorter
+class Search::Sorting::Parser
   # Can Swap direction and field name 
-  # if the field name is accidentally the name of a valid direction
-  
+  # if the field name is accidentally the name of a valid direction  
   module Swapper
     extend ActiveSupport::Concern
 

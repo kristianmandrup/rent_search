@@ -35,7 +35,7 @@ module Search::Sorting
     end
 
     def sort_items
-      @sort_items ||= sorting.split(separator) : 
+      @sort_items ||= sorting.split(separator)
     end
   end
 end

@@ -1,4 +1,4 @@
-class Property::Criteria::Filter
+class Property::Search::Criteria::Filter
   class SelectCounter < FieldCounter
     def count_selects *fields
       select_criterias(*fields)[:selected].inject({}) do |res, enum|

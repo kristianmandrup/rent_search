@@ -1,6 +1,6 @@
 class Search
   class Filter
-    attr_reader :filter
+    attr_reader :only_filter, :except_filter
 
     def initialize filter_options = {}
       only filter_options[:only]
@@ -18,12 +18,19 @@ class Search
       end
     end
 
+    def to_s
+      %Q{
+only:   #{only_filter}
+except: #{except_filter}
+}
+    end
+
     def only *filter
-      @only_filter = filter.flatten
+      @only_filter = filter.flatten.compact
     end
 
     def except *filter
-      @except_filter = filter.flatten
+      @except_filter = filter.flatten.compact
     end
 
     protected

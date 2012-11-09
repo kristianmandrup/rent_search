@@ -1,5 +1,4 @@
-module Search::Sorter
-
+module Search::Sorter::Direction
   # Can reverse the sorting direction
   module Reverser
     extend ActiveSupport::Concern

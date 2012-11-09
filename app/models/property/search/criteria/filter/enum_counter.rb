@@ -1,4 +1,4 @@
-class Property::Criteria::Filter
+class Property::Search::Criteria::Filter
   class EnumCounter < FieldCounter
     def count_enums *args
       return count_enums_for(args.first) if args.first.kind_of?(Hash)

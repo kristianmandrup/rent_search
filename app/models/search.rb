@@ -1,7 +1,7 @@
 class Search
   include BasicDocument
 
-  include_concerns :fields, :sortable, :agentize
+  include_concerns :sortable, :agentize
 
   # Returns the model class this Search operates on
   def subject_class

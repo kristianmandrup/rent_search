@@ -2,19 +2,20 @@ class Property::Search::Criteria::Builder
   class Base
     attr_reader :search, :type
 
-    include_concerns :mapper, for 'Property::Search::Criteria::Builder'
+    include_concerns :mapper, for: 'Property::Search::Criteria::Builder'
 
     def initialize search, type = nil
       @search = search
       @type = type if type
     end
 
+    # builds the criteria hash
     def build
-      criteria_fields_for(criteria_type).inject({}) do |criteria_hash, field|        
-        value = field_value field      
-        set_criteria(criteria_hash, field, value) unless skip?(field, value)
-        criteria_hash
-      end
+      # criteria_fields_for(criteria_type).inject({}) do |criteria_hash, field|        
+      #   value = field_value field      
+      #   set_criteria(criteria_hash, field, value) unless skip?(field, value)
+      #   criteria_hash
+      # end
     end  
 
     def set_criteria criteria_hash, field, value

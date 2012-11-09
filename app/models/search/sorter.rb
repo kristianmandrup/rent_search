@@ -1,11 +1,10 @@
 class Search
-
   # Abstract class to perform sorting
   # See fx Property::Search::Sorter for implementation example
   class Sorter
     attr_reader :field_name, :direction
 
-    include_concerns :direction_calculator
+    include_concerns :direction, :field, :displayer
 
     # Calculates the new sort order given a field name
 

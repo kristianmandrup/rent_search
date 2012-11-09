@@ -1,4 +1,4 @@
-module Search::Sorter
+class Search::Sorter
   module Displayer
     extend ActiveSupport::Concern
 

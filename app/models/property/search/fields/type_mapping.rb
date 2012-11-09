@@ -42,7 +42,7 @@ module Property::Search::Fields
           string:     %w{furnishment full_address country_code currency size_unit},
           boolean:    %w{shared},
           number:     %w{radius},
-          list:       %w{types}
+          list:       %w{types},
           range:      %w{total_rent sqm sqfeet rentability rating rooms},
           timespan:   %w{period},
           geo:        %w{point},

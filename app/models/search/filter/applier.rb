@@ -24,7 +24,6 @@ class Search::Filter
 
     def reset field
       search.send("#{field}=", nil)
-    end      
-  end
+    end
   end
 end

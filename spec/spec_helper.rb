@@ -6,7 +6,7 @@ require 'ffaker'
 require 'kaminari'
 require 'delorean'
 
-require 'models/property/criteria/helpers/setup'
+# require 'models/property/criteria/spec_helper'
 
 Spork.prefork do
   # Configure Rails Envinronment

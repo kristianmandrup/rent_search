@@ -1,4 +1,4 @@
-module Search::Sorter
+class Search::Sorter
 
   # Can retrive the valid list of fields for each direction
 

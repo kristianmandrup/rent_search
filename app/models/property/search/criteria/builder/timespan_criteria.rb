@@ -13,7 +13,7 @@ class Property::Search::Criteria::Builder
     end
 
     class Creator
-      include_concerns :mapper, for 'Property::Search::Criteria::Builder'
+      include_concerns :mapper, for: 'Property::Search::Criteria::Builder'
 
       attr_reader :criteria_builder, :field, :value
 

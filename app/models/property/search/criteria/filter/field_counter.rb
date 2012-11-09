@@ -1,4 +1,4 @@
-class Property::Criteria::Filter
+class Property::Search::Criteria::Filter
   class FieldCounter
     attr_reader :search
 

@@ -1,4 +1,4 @@
-class Property::Search::Fields
+module Property::Search::Fields
   module Setters
     extend ActiveSupport::Concern
 
