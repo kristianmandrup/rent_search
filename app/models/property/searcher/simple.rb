@@ -1,6 +1,6 @@
-class Property
-  class BasicSearcher < Searcher
-    def initialize criteria_hash = {}
+class Property::Searcher
+  class Basic < Base
+    def initialize options = {}
       puts "BASIC SEARCHER - Searching for: #{clazz}"
       super
     end

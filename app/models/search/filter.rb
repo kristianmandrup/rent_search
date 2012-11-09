@@ -2,17 +2,38 @@ class Search
   class Filter
     attr_reader :filter
 
-    def initialize filter = []
-      @filter = filter
+    def initialize filter_options = {}
+      only filter_options[:only]
+      except filter_options[:except]
     end
 
-    def apply_on search
-      raise ArgumentError, "Must be a kind of Search" unless search.kind_of?(Search)
-      filter.each {|field| reset field }
-    end 
+    def applier_for subject
+      case subject
+      when Hash
+        hash_applier(subject)
+      when Mongoid::Document
+        applier(subject)
+      else
+        raise ArgumentError, "No Filter Applier exists for: #{subject}. Try a Hash or a Mongoid::Document"
+      end
+    end
 
-    def reset field
-      search.send("#{field}=", nil)
+    def only *filter
+      @only_filter = filter.flatten
+    end
+
+    def except *filter
+      @except_filter = filter.flatten
+    end
+
+    protected
+
+    def hash_applier hash
+      HashApplier.new self, hash
+    end
+
+    def applier doc
+      Applier.new self, doc
     end
   end
 end

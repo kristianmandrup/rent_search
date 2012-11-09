@@ -3,15 +3,11 @@ class Searcher
     extend ActiveSupport::Concern
 
     def criteria_hash
-      @criteria_hash ||= filter.apply_on(criteria_options)
+      @criteria_hash ||= filter.apply_on(criteria)
     end
 
-    def criteria_options
-      @criteria_options ||= options.reject_keys(:paged, :ordered, :sorted)
-    end
-
-    def criteria
-      @criteria ||= search.as(:criteria_hash)
+    def search_criteria
+      @search_criteria ||= search.as(:criteria_hash)
     end
   end
 end

@@ -1,11 +1,16 @@
 class Property::Criteria
   class Preferences
+    include ActiveModel::Validators
+
     attr_reader :area_unit, :currency
 
     def initialize options = {}
       @area_unit = options[:area_unit] || 'sqm'
       @currency = options[:currency] || 'EUR'      
     end
+
+    validates :area_unit, presence: true
+    validates :currency, presence: true
 
     def area_unit= unit
       unless valid_area_units.include? unit

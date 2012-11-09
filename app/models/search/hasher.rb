@@ -2,7 +2,7 @@ class Search
   module Hasher
     extend ActiveSupport::Concern
 
-    def as_hash
+    def as type = :criteria_hash
       subject_class.all_fields.inject({}) do |res, name|
         hash = hash_for(name)
         res.merge! hash if hash

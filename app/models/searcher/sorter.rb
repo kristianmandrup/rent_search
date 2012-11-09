@@ -1,9 +1,9 @@
 class Searcher
   class Sorter
-    attr_reader :order
+    attr_reader :sort_order
 
     def initialize options = {}
-      @order = Search::SortOrder.new options.delete(:order)
+      @sort_order = Search::SortOrder.new options.delete(:order)
     end
 
     def execute search_result
@@ -17,11 +17,11 @@ class Searcher
     end
 
     def selected_order
-      order ? {order.field => order.direction} : {}      
+      sort_order ? {sort_order.field => sort_order.direction} : {}      
     end
 
     def default_order
-      {published_at: :asc}
+      {created_at: :asc}
     end
   end
 end

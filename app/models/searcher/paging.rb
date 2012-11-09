@@ -3,7 +3,11 @@ class Searcher
     extend ActiveSupport::Concern
 
     def pager
-      @pager ||= Searcher::Pager.new options
+      @pager ||= Searcher::Pager.new pager_options
+    end
+
+    def pager_options
+      searcher_config.pager_options
     end
 
     def paged result = nil

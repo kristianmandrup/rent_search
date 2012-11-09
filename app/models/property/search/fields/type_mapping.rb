@@ -49,7 +49,11 @@ module Property::Search::Fields
         }
       end
 
-      def all_field_names
+      def criteria_types
+        type_names.keys
+      end
+
+      def field_names
         type_names.values
       end  
     end

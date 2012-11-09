@@ -1,18 +1,19 @@
 class Property::Search::Criteria::Mapper
   class Simple < Base
+    include Property::Search::Preferences::Validator
+
     attr_reader :criteria_hash, :preferences
 
     def initialize criteria_hash, preferences = nil
       @criteria_hash = Hashie::Mash.new criteria_hash
 
-      preferences ||= Property::Criteria::Preferences.new
-      unless preferences.kind_of?(Property::Criteria::Preferences)
+      unless valid_preferences? preferences
         raise ArgumentError, "Must be a Property::Criteria::Preferences, was: preferences"
       end
-      @preferences = preferences
 
-      raise "No area unit defined in preferences" if preferences.area_unit.blank?
-      raise "No currency defined in preferences" if preferences.currency.blank?
+      # create default preferences if none provided
+      @preferences = preferences || preferences_clazz.new
+      preferences.valid?
     end
 
     def mapped_hash
