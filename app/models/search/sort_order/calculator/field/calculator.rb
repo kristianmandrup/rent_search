@@ -14,14 +14,14 @@ module Search::SortOrder::Calculator::Field
     end
 
     def calc name = nil
-      @field_name ||= name || field
-      @field_name = normalized_name.to_sym
+      @field_name = name.blank? ? field : name
+      normalize_name!
     end
 
     protected
 
-    def normalized_name
-      valid_field?(field_name) ? field_name : default_field
+    def normalize_name!
+      @field_name = valid_field?(field_name) ? field_name : default_field
     end
 
     delegate :direction, :field, :default_field, to: :sort_order

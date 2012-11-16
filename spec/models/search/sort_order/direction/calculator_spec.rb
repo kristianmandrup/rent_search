@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class NiceSorter < Search::Sorter
+class NiceSorter < Search::SortOrder::Calculator
   def asc_fields
     %w{date cost created_at}
   end
@@ -11,21 +11,23 @@ class NiceSorter < Search::Sorter
 end
 
 class SortyOrder < Search::SortOrder
-  def sorter_class
+  def calculator_class
     NiceSorter
   end
 end
 
 
-describe Search::Sorter::Direction::Calculator do
+describe Search::SortOrder::Calculator::Direction::Calculator do
   # subject { calculator }
 
   let(:order_clazz) { SortyOrder }
 
+  let(:calc_class) { Search::SortOrder::Calculator::Direction::Calculator }
+
   describe 'init' do
     context 'invalid field' do
       specify do
-        expect { Search::Sorter::Direction::Calculator.new sort_order }.to raise_error
+        expect { calc_class.new sort_order }.to raise_error
       end
 
       let(:sort_order) do
@@ -35,7 +37,7 @@ describe Search::Sorter::Direction::Calculator do
 
     context 'invalid direction' do
       specify do
-        expect { Search::Sorter::Direction::Calculator.new sort_order }.to raise_error
+        expect { calc_class.new sort_order }.to raise_error
       end
 
       let(:sort_order) do
@@ -46,7 +48,7 @@ describe Search::Sorter::Direction::Calculator do
     # date should only allow sorting in ascending order, (soonest first)
     context 'invalid direction for field' do
       let(:calculator) do
-        Search::Sorter::Direction::Calculator.new sort_order
+        calc_class.new sort_order
       end
 
       let(:sort_order) do
@@ -61,7 +63,7 @@ describe Search::Sorter::Direction::Calculator do
     # date should only allow sorting in ascending order, (soonest first)
     context 'valid direction for field' do
       let(:calculator) do
-        Search::Sorter::Direction::Calculator.new sort_order
+        calc_class.new sort_order
       end
 
       let(:sort_order) do
@@ -77,7 +79,7 @@ describe Search::Sorter::Direction::Calculator do
   describe 'calc' do
     context 'allows only one direction for :date' do
       let(:calculator) do
-        Search::Sorter::Direction::Calculator.new sort_order
+        calc_class.new sort_order
       end
 
       let(:sort_order) do
@@ -95,7 +97,7 @@ describe Search::Sorter::Direction::Calculator do
 
     context 'allows both directions for :cost' do
       let(:calculator) do
-        Search::Sorter::Direction::Calculator.new sort_order
+        calc_class.new sort_order
       end
 
       let(:sort_order) do
@@ -113,7 +115,7 @@ describe Search::Sorter::Direction::Calculator do
 
     context 'allows desc for :cost' do
       let(:calculator) do
-        Search::Sorter::Direction::Calculator.new sort_order
+        calc_class.new sort_order
       end
 
       let(:sort_order) do

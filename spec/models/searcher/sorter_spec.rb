@@ -22,8 +22,14 @@ describe Searcher::Sorter do
   end
 
   describe 'execute search_result' do
+    let(:search_result) { Property.all }
+
     specify do
       subject.execute(search_result).should be_a Mongoid::Criteria
+    end
+
+    specify do
+      subject.execute(search_result).options[:sort].should == {"cost"=>-1, "created_at"=>1}
     end
   end
 

@@ -4,7 +4,7 @@ describe Search::Agentize do
   subject { agent }
 
   let(:agent) do
-    Property::Agent.new search: search
+    Property::Search::Agent.new search: search
   end
 
   let(:search) do

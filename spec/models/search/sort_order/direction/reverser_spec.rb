@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class Reversed
-  include Search::Sorter::Direction::Reverser
+  include Search::SortOrder::Calculator::Direction::Reverser
   
   attr_reader :field, :direction
 
@@ -13,7 +13,7 @@ class Reversed
   alias_method :sort_field, :field
 end
 
-describe Search::Sorter::Direction::Reverser do
+describe Search::SortOrder::Calculator::Direction::Reverser do
   subject { reverser }
 
   let(:reverser) { Reversed.new :cost, :desc }

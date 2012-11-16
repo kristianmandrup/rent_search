@@ -1,6 +1,12 @@
 require 'spec_helper'
 
-class NiceSorter4 < Search::Sorter
+class SearchySortOrder < Search::SortOrder
+  def calculator_class
+    NiceSorter4
+  end
+end  
+
+class NiceSorter4 < Search::SortOrder::Calculator
   def asc_fields
     %w{date cost created_at}
   end
@@ -9,12 +15,6 @@ class NiceSorter4 < Search::Sorter
     %w{cost}
   end
 end
-
-class SearchySortOrder < Search::SortOrder
-  def sorter_class
-    NiceSorter4
-  end
-end  
 
 describe Search::SortOrder do
   subject { sort_order }
@@ -25,7 +25,7 @@ describe Search::SortOrder do
     end
 
     specify do
-      subject.name.should == subject.default_field
+      subject.name.should == sort_order.default_field
     end
 
     it 'should set field' do
@@ -33,11 +33,11 @@ describe Search::SortOrder do
     end
 
     it 'should set field to default field' do
-      subject.field.should == subject.default_field
+      subject.field.should == sort_order.default_field
     end
 
     it 'should calculate field as default field' do
-      subject.calc.field.should == subject.default_field
+      subject.calc.field.should == sort_order.default_field
     end
 
     it 'should set direction' do
@@ -45,19 +45,19 @@ describe Search::SortOrder do
     end    
 
     it 'should set direction to default' do
-      subject.direction.should == subject.default_direction
+      subject.direction.should == sort_order.default_direction
     end
 
     it 'should calculate direction as default' do
-      subject.calc.direction.should == subject.default_direction
+      subject.calc.direction.should == sort_order.default_direction
     end
 
     it 'should set sort_order' do
-      subject.sorter.should_not be_nil
+      subject.calculator.should_not be_nil
     end    
 
     it 'should set sort_order of sorter' do
-      subject.sorter.sort_order.should == sort_order
+      subject.calculator.sort_order.should == sort_order
     end    
   end
 

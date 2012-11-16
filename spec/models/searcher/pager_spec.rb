@@ -8,7 +8,7 @@ describe Searcher::Pager do
   end
 
   let(:search_result) do
-    Search.new.execute # default search method?
+    Property.all # default search method?
   end
 
   describe 'page' do
@@ -18,8 +18,8 @@ describe Searcher::Pager do
       end
 
       specify do
-        pager.page.should == 1
-      end      
+        subject.page.should == 1
+      end
     end
 
     context 'page 2' do
@@ -28,15 +28,22 @@ describe Searcher::Pager do
       end
 
       specify do
-        pager.page.should == 2
-      end      
+        subject.page.should == 2
+      end
     end
   end
 
   describe 'execute search_result' do
     specify do
-      pager.execute(search_result).should be_a Mongoid::Criteria
+      subject.execute(search_result).should be_a Mongoid::Criteria
+    end
+
+    specify do
+      # puts subject.execute(search_result).inspect
+      subject.execute(search_result).options[:limit].should > 0
+    end
+    specify do
+      subject.execute(search_result).options[:skip].should >= 0      
     end
   end
 end
-

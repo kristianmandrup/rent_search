@@ -2,10 +2,6 @@ require 'spec_helper'
 
 class SearcherFiltering
   include Searcher::Filtering
-
-  def self.all_fields
-    %w{cost size}
-  end
 end
 
 describe Searcher::Filtering do
@@ -16,5 +12,8 @@ describe Searcher::Filtering do
   end
 
   describe 'filter' do
+    specify do
+      subject.filter.should be_a Search::Filter
+    end
   end
 end

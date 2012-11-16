@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class DirValidator
-  include Search::Sorter::Direction::Validator
+  include Search::SortOrder::Calculator::Direction::Validator
 
   attr_reader :field, :direction
 
@@ -37,7 +37,7 @@ class DirValidator
 end
 
 class EmptyDirValidator
-  include Search::Sorter::Direction::Validator
+  include Search::SortOrder::Calculator::Direction::Validator
 
   def sort_fields_for dir = :asc
     send "#{dir}_fields"
@@ -52,7 +52,7 @@ class EmptyDirValidator
   end
 end
 
-describe Search::Sorter::Direction::Validator do
+describe Search::SortOrder::Calculator::Direction::Validator do
   subject { validator }
 
   let(:validator)   { DirValidator.new :cost, :desc }

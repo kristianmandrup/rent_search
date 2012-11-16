@@ -8,7 +8,10 @@ class Search
     #   date -> publish_date
 
     def initialize name = nil, direction = nil
-      name  ||= default_field
+      # @field     = name
+      # @direction = direction
+
+      name       ||= default_field
       @name      = label name
       @field     = field_name(name) || default_field
       @direction = direction || default_direction   
@@ -16,6 +19,14 @@ class Search
 
     def valid?
       valid_direction?(direction) && valid_field?(field)
+    end
+
+    def valid_dir?
+      valid_direction?(direction)
+    end
+
+    def valid_field_name?
+      valid_field?(field)
     end
 
     # TODO: Should be possible to simplify all this!

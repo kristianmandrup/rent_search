@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class NiceSorter3 < Search::Sorter
+class NiceSorter3 < Search::SortOrder::Calculator
   def asc_fields
     %w{date cost created_at}
   end
@@ -11,12 +11,12 @@ class NiceSorter3 < Search::Sorter
 end
 
 class SortyOrdering < Search::SortOrder
-  def sorter_class
+  def calculator_class
     NiceSorter3
   end
 end
 
-describe Search::Sorter do
+describe Search::SortOrder::Calculator do
   subject { sorter }
 
   let(:sorter_clazz) { NiceSorter3 }

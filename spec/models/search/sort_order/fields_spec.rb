@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class WithFields
-  include Search::Sorter::Fields
+  include Search::SortOrder::Calculator::Fields
 
   def desc_fields
     %w{cost}
@@ -12,7 +12,7 @@ class WithFields
   end
 end  
 
-describe Search::Sorter::Fields do
+describe Search::SortOrder::Calculator::Fields do
   subject { fields }
 
   let(:fields) { WithFields.new }
