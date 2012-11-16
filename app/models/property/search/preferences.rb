@@ -5,8 +5,8 @@ class Property::Search
     attr_reader :area_unit, :currency
 
     def initialize options = {}
-      @area_unit = options[:area_unit] || 'sqm'
-      @currency = options[:currency] || 'EUR'      
+      @area_unit = options[:area_unit] || default_area_unit
+      @currency = options[:currency] || default_currency
     end
 
     validates :area_unit, presence: true
@@ -24,7 +24,17 @@ class Property::Search
         raise ArgumentError, "Not a valid currency, was: #{currency}, must be one of #{valid_currencies}" 
       end
       @currency = currency
-    end      
+    end   
+
+    protected
+
+    def default_area_unit
+      'sqm'   
+    end
+
+    def default_currency
+      'EUR'   
+    end
 
     module Methods
       def valid_area_units

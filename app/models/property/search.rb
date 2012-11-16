@@ -2,6 +2,10 @@ class Property
   class Search < ::Search
     include BasicDocument
 
+    def self.agent_class
+      Agent
+    end
+
     # to fine tune name returned for url
     # http://rocketrails.wordpress.com/2011/12/29/urls-for-namespaced-models/
 
@@ -17,9 +21,13 @@ class Property
     # <% end %>    
 
     include_concerns :fields
-    include_concerns :hasher, for: 'Search'
+    include_concerns :hasher, :agentize, for: 'Search'
 
-    belongs_to :agent, class_name: 'Property::Agent'
+    # belongs_to :agent, class_name: agent_class # 'Property::Agent'
+
+    def hash
+      self.class.all_fields.inject(0) {|res, f| res += send(f).hash }
+    end  
 
     def searcher
       @searcher ||= Property::Searcher.new
@@ -29,13 +37,15 @@ class Property
       @properties ||= find_properties
     end
 
-    def create_agent_for user
-      Agent.create self, user: user
-    end
-
     # Use Searcher!
     def find_properties
       searcher.execute
+    end
+
+    protected
+
+    def agent_class
+      self.class.agent_class
     end
   end
 end

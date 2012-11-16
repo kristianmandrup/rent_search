@@ -8,6 +8,7 @@ class Search::Sorting::Parser
     # and needs to be swapped
     def swap!
       @sort_field, @sort_direction = @sort_direction, @sort_field
+      self
     end
 
     # is this text a direction ?

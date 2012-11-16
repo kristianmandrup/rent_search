@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :agent do
+  factory :agent, class: 'Search::Agent' do
 
     trait :non_empty do
       after(:build) do |agent|

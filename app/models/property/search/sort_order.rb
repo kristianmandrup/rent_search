@@ -24,8 +24,8 @@ class Property::Search
       end
     end
 
-    def sorter_class
-      Property::Search::Sorter
+    def calculator_class
+      Property::Search::SortOrder::Calculator
     end
   end
 end

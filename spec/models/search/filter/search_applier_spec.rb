@@ -7,10 +7,6 @@ class SearchApply < Search
   field :rooms, type: Integer, default: 1
   field :size,  type: Integer, default: 1
 
-  def set_fields
-    self.class.all_fields.select{|f| self.send(f) != nil }.map(&:to_sym)
-  end
-
   def self.all_fields
     %w{cost size rooms}
   end

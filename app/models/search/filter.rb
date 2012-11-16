@@ -12,7 +12,7 @@ class Search
       when Hash
         hash_applier(subject)
       when Mongoid::Document
-        applier(subject)
+        search_applier(subject)
       else
         raise ArgumentError, "No Filter Applier exists for: #{subject}. Try a Hash or a Mongoid::Document"
       end
@@ -39,8 +39,8 @@ except: #{except_filter}
       HashApplier.new self, hash
     end
 
-    def applier doc
-      Applier.new self, doc
+    def search_applier doc
+      SearchApplier.new self, doc
     end
   end
 end

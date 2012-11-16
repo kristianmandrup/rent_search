@@ -9,10 +9,10 @@
 # - decide criteria to filter out, not to be used in the searching
 
 class Searcher
-  attr_reader :searcher_options, :display_options, :criteria
+  attr_reader :options, :criteria
   attr_reader :results
 
-  include_concerns :paging, :sorting, :filtering, :criteria, :config_options
+  include_concerns :paging, :sorting, :filtering, :criteria, :config
 
   # Usage
   # 
@@ -22,22 +22,14 @@ class Searcher
   # Then on each execution configure display and finder options and execute!
   #   searcher.display(page: 1).find(criteria).execute
 
-  def initialize searcher_options
-    @searcher_options = normalize_options searcher_options    
+  def initialize options = {}
+    @options = normalize_options options    
   end
 
   # criteria
   #   - hash of search criteria
   def find criteria = {}    
     @criteria = criteria
-    self
-  end
-
-  # display_options includes
-  #   - page: integer
-  #   - order: direction and field 
-  def display display_options
-    @display_options = display_options
     self
   end
 
@@ -88,6 +80,7 @@ class Searcher
     search
   end 
 
+  # Build a Search?
   def builder_class
     raise NotImplementedError, "Must be implemented by subclass"
   end

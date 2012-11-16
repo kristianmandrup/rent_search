@@ -7,7 +7,19 @@ class Searcher
     end
 
     def pager_options
-      searcher_config.pager_options
+      display_options.keep_only(Searcher::Pager.options_allowed)
+    end
+
+    # display_options includes
+    #   - page: integer
+    #   - order: direction and field 
+    def display display_options
+      @display_options = display_options
+      self
+    end
+
+    def display_options
+      @display_options ||= {}
     end
 
     def paged result = nil
@@ -16,11 +28,7 @@ class Searcher
     end
 
     def paged?    
-      @paged == true
-    end
-
-    def paged!
-      @paged = true
+      options.paged?
     end
   end
 end

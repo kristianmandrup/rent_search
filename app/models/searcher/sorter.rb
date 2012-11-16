@@ -3,21 +3,33 @@ class Searcher
     attr_reader :sort_order
 
     def initialize options = {}
-      @sort_order = Search::SortOrder.new options.delete(:order)
+      field     = options[:field]
+      direction = options[:direction]      
+      @sort_order ||= Search::SortOrder.new(field, direction)
     end
+
+    def calculated_sort_order
+      sort_order.calc!
+    end
+
+    def self.options_allowed
+      %w{field direction}
+    end    
 
     def execute search_result
       search_result.order_by(ordering)
     end
 
-    protected
+    delegate :field, :direction, to: :sort_order
+
+    # protected
 
     def ordering
       selected_order.merge(default_order)
     end
 
     def selected_order
-      sort_order ? {sort_order.field => sort_order.direction} : {}      
+      sort_order ? {field => direction} : {}
     end
 
     def default_order

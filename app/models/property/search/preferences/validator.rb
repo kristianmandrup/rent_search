@@ -5,7 +5,7 @@ class Property::Search::Preferences
     end
 
     def preferences_clazz
-      Property::Search::Criteria::Preferences
+      Property::Search::Preferences
     end
   end
 end
