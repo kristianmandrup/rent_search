@@ -40,7 +40,7 @@ describe Property::Search::Criteria::Mapper::Ranges do
       describe 'mapped criteria' do
         specify {
           puts subject.mapped_hash
-          subject.mapped_hash.should == {"size"=> 5..1000}
+          subject.mapped_hash.should == {"size"=> 5..500}
           # expect { subject.mapped_hash }.to raise_error(ArgumentError)
         }
       end

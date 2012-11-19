@@ -8,20 +8,22 @@ class Property::Search::Criteria::Mapper::Ranges
       @value = value
     end
 
+    # Return the normal value in case it is not a Range!
     def normalized
       @normalized ||= valid_range? ? range : normalized_range(range)
     rescue Exception => e 
-      puts e.message
+      # puts e.message
       value
     end
 
     def normalized_range range
+      return nil if range.nil?
       norm_range = range_map[key.to_sym]
       min = norm_range.cover?(range.min) ? range.min : norm_range.min
       max = norm_range.cover?(range.max) ? range.max : norm_range.max
       Range.new min, max
     rescue Exception => e
-      puts e.message      
+      # puts e.message      
       norm_range
     end
 
@@ -30,6 +32,7 @@ class Property::Search::Criteria::Mapper::Ranges
     end
 
     def valid_range?
+      return true if range.nil?
       normalized_range(range).covers? range
     end
 
@@ -50,6 +53,7 @@ class Property::Search::Criteria::Mapper::Ranges
     # TODO: RangeParser class?
 
     def range_of value
+      return nil if value == 'any' || value.blank?
       unless valid_parsed_range? parsed_range
         raise ArgumentError, "Range must be a string of the form: 'x-y', '+x' or 'x-' where x (and y) are whole numbers, for #{key} was: #{value}"
       end
@@ -69,7 +73,7 @@ class Property::Search::Criteria::Mapper::Ranges
     end
 
     def valid_parsed_range? arr
-      !arr.blank? && arr.kind_of?(Array) && !(arr.first == nil)
+      arr.kind_of?(Array) && !(arr.first == nil)
     end
 
     def more_expr? value

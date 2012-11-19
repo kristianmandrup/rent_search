@@ -19,6 +19,7 @@ class Property::Search::Criteria::Mapper
     # Uses normalizer
     def normalized_criteria
       @normalized_criteria ||= criteria_hash.inject({}) do |res, (key, value)|
+        map_key(key)
         res.merge! key => send("normalize", key, value)
       end
     end

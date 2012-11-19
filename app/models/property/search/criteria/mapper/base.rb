@@ -13,7 +13,6 @@ class Property::Search::Criteria::Mapper
 
       # create default preferences if none provided
       @preferences = preferences || preferences_clazz.new
-      preferences.valid?
     end
 
     def mapped_hash
@@ -26,24 +25,31 @@ class Property::Search::Criteria::Mapper
 
     protected
 
+    def preferences_clazz
+      Property::Search::Preferences
+    end
+
     delegate :currency, :area_unit, to: :preferences
 
     def map key, value
       key = map_key(key)
       mapped =  map_value(key, value)
       return nil if !mapped
-      {key => mapped}
+      {key.to_sym => mapped}
     end
 
+    # TODO: Currency mapping for cost?
     def map_key key
-      k = key_mapping[key.to_sym]
-      k == nil ? key : k
+      k = key_mapping[key.to_sym]    
+      mapped = k == nil ? key : k
+      mapped == 'size' ? preferences.area_unit : mapped
     end
 
     def key_mapping
       {
-        location: :full_address,
-        cost:     :total_rent
+        location: 'full_address',        
+        total_rent: 'cost',
+        # cost:     'total_rent'
       }
     end
 
