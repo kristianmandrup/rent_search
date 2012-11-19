@@ -5,6 +5,7 @@ class Property::Search::Criteria
     include_concerns :mapper
 
     def initialize search
+      raise ArgumentError, "Must be a Search, was: #{search}" unless search.kind_of?(Search)
       @search = search
     end
 

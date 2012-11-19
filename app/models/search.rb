@@ -3,6 +3,10 @@ class Search
 
   include_concerns :sortable #, :agentize
 
+  def where hash = {}
+    subject_class.where(hash)
+  end
+
   def set_fields
     self.class.all_fields.select{|f| self.send(f) != nil }.map(&:to_sym)
   end

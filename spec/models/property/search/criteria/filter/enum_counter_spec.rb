@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Property::Criteria::Filter do
+describe Property::Search::Criteria::Filter do
   context '10 valid properties' do
     before :each do
       5.times do |n|
@@ -14,14 +14,16 @@ describe Property::Criteria::Filter do
     
     subject { counter }
 
-    let(:searcher) { Property::Searcher.new }
-    let(:search) { searcher.search }
+    # let(:searcher) { Property::Searcher.new }
+    # let(:search)   { searcher.search }
 
-    let(:counter) { Property::Criteria::Filter::EnumCounter.new search }
+    let(:search)  { create :valid_property_search }
 
-    describe '.field_filterer' do
+    let(:counter) { Property::Search::Criteria::Filter::EnumCounter.new search }
+
+    describe '.field_selector' do
       specify do
-        subject.field_filterer.should be_a(Property::FieldFilterer)
+        subject.field_selector.should be_a(Property::Search::Criteria::Filter::FieldSelector)
       end      
     end
 
@@ -52,7 +54,7 @@ describe Property::Criteria::Filter do
         puts "enums: #{subject.enum_criterias}"
         subject.enum_criterias.each do |key, list|
           list.each do |enum|
-            subject.count_enums(:type)[key][enum].should > 0
+            subject.count_enums(:types)[key][enum].should > 0
           end
         end
       end
@@ -61,9 +63,10 @@ describe Property::Criteria::Filter do
     describe '.count_enums_for hash' do
       specify do
         puts "enums: #{subject.enum_criterias}"
-        hash = subject.count_enums_for(type: ['apartment'])
-        puts "hash for type:apartment #{hash}"
-        hash[:type].should be_a Hash
+        hash = subject.count_enums_for(types: ['apartment'])
+
+        # puts "hash for type:apartment #{hash}"
+        hash[:types].should be_a Hash
         hash[:furnishment].should be_nil
       end
     end

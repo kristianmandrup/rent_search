@@ -1,17 +1,34 @@
 class Property::Search
   class Criteria
-    def initialize options = {}
+    attr_reader :search
+
+    def initialize search
+      @search = search
+    end
+
+    def build search = nil
+      @builder = builder_class.new search if search
+
+      builder.where_criteria
     end
 
     def builder
-      @builder ||= Property::Search::Criteria::Builder.new self
+      @builder ||= builder_class.new search
     end
 
     def mapper criteria_hash, preferences = nil
-      Property::Criteria::Mapper.build(criteria_hash, preferences)
+      mapper_class.build(criteria_hash, preferences)
     end
 
     protected
+
+    def mapper_class
+      Property::Search::Criteria::Mapper
+    end
+
+    def builder_class
+      Property::Search::Criteria::Builder
+    end
 
     def subject_clazz
       ::SearchableProperty

@@ -4,6 +4,13 @@ class Property::Search::Criteria
     attr_reader :type, :criteria_hash
 
     class << self
+
+      # Given a Hash from the UI, such as 
+      #   {rooms: 'any', size: '50-100'}
+
+      # Returns a Hash with valid Ruby types, such as Range, Integer, Array etc
+      #   {rooms: nil, size: (50..100) }
+
       def build criteria_hash, preferences = nil, type = :ranges
         raise ArgumentError, "Invalid Mapper type: #{type}, must be one of: #{valid_types}" unless valid_type? type
         raise ArgumentError, "Must be a #{pref_clazz}, was: #{preferences}" unless valid_preferences? preferences

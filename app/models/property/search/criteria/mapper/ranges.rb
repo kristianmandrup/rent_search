@@ -24,7 +24,7 @@ class Property::Search::Criteria::Mapper
     end
 
     def normalize key, value
-      Property::Criteria::Mapper::Normalizer.new(key, value).normalized
+      Normalizer.new(key, value).normalized
     end    
   end
 end

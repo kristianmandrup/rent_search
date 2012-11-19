@@ -26,13 +26,17 @@ class Property::Search::Criteria::Filter
     end
 
     def values_for *names            
-      names.flatten.inject({}) {|res, name| res.merge! name.to_sym => values_for_field(name) }
+      names.flatten.inject({}) do |res, name| 
+        val = values_for_field(name).flatten
+        res.merge! name.to_sym => val # unless val.blank?
+        res
+      end
     end
 
     def values_for_field name
-      raise ArgumentError, "Unknown field #{name} for #{first}" unless first.respond_to? name
+      raise ArgumentError, "Unknown field '#{name}' for #{first}" unless first.respond_to? name
 
-      to_a.map{|item| item.send(name) }.compact.uniq
+      to_a.map{|item| item.send(name) }.flatten.compact.uniq
     end
   end
 end

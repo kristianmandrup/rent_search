@@ -38,8 +38,9 @@ class Property::Search::Criteria::Filter
       @enum_criterias ||= values_for(fields)
     end        
 
+    # TODO: void hard coding, get from type mapping!
     def enum_fields
-      %w{type furnishment} #.map(&:to_sym)
+      %w{types furnishment} #.map(&:to_sym)
     end
   end
 end

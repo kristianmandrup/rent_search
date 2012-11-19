@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Property::Criteria::Filter::SelectCounter do
+describe Property::Search::Criteria::Filter::SelectCounter do
   context '10 valid properties' do
     before :each do
       5.times do |n|
@@ -14,10 +14,12 @@ describe Property::Criteria::Filter::SelectCounter do
     
     subject { counter }
 
-    let(:searcher) { Property::Searcher.new }
-    let(:search) { searcher.search }
+    # let(:searcher) { Property::Searcher.new }
+    # let(:search)  { searcher.search }
 
-    let(:counter) { Property::Criteria::Filter::SelectCounter.new search }
+    let(:search)  { create :valid_search }
+
+    let(:counter) { Property::Search::Criteria::Filter::SelectCounter.new search }
 
     # TODO: test caching!
 

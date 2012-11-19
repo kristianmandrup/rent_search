@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Property::Criteria::Filter::FieldSelector do
+describe Property::Search::Criteria::Filter::FieldSelector do
   subject { filterer }
 
   def field_clazz_for name
@@ -17,7 +17,7 @@ describe Property::Criteria::Filter::FieldSelector do
       puts SearchableProperty.all[0..3]
     end
     
-    let(:filterer) { Property::Criteria::Filter::FieldSelector.new SearchableProperty.all }
+    let(:filterer) { Property::Search::Criteria::Filter::FieldSelector.new SearchableProperty.all }
 
     # describe '.each' do
     #   specify do

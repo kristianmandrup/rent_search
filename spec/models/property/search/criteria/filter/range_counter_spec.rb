@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Property::Criteria::Filter do
+describe Property::Search::Criteria::Filter do
   context '10 valid properties' do
     before :each do
       5.times do |n|
@@ -15,9 +15,11 @@ describe Property::Criteria::Filter do
     subject { counter }
 
     let(:searcher) { Property::Searcher.new }
-    let(:search) { searcher.search }
+    let(:search) { searcher.execute }
+    
+    # let(:search)  { create :valid_property_search }
 
-    let(:counter) { Property::Criteria::Filter::RangeCounter.new search }
+    let(:counter) { Property::Search::Criteria::Filter::RangeCounter.new search }
 
     describe '.min' do
       specify do

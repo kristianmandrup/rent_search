@@ -48,11 +48,6 @@ class Searcher
     @results ||= perform_search
   end
 
-  # The builder used to build a Search model from a criteria hash
-  def search_builder
-    @search_builder ||= builder_class.new options
-  end  
-
   # Executes a Search returning a Mongoid Criteria (result)
   def search_result
     search.execute
@@ -62,6 +57,11 @@ class Searcher
   def search
     @search ||= search_builder.build_from criteria_hash
   end   
+
+  # The builder used to build a Search model from a criteria hash
+  def search_builder
+    @search_builder ||= criteria_class.new options
+  end  
 
   delegate :order, to: :sorter
   delegate :page,  to: :pager   
@@ -79,11 +79,6 @@ class Searcher
     return ordered if ordered?
     search
   end 
-
-  # Build a Search?
-  def builder_class
-    raise NotImplementedError, "Must be implemented by subclass"
-  end
 
   def to_s
     %Q{
