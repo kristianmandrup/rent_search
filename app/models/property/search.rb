@@ -2,6 +2,8 @@ class Property
   class Search < ::Search
     include BasicDocument
 
+    class GeoCodeError < StandardError; end
+
     def self.agent_class
       Agent
     end
@@ -40,6 +42,10 @@ class Property
     # Use Searcher!
     def find_properties
       searcher.execute
+    end
+
+    def subject_class
+      self.class
     end
 
     protected

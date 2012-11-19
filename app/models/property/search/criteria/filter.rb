@@ -1,4 +1,7 @@
 class Property::Search::Criteria
+
+  # Filters the Criteria to be shown in the UI
+  # only show criteria options that will return results
   class Filter
     attr_reader :searcher
 

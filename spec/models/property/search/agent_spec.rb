@@ -8,7 +8,7 @@ describe Property::Search::Agent do
   end
 
   let(:search) do
-    Property::Search.create cost: '7', size: 8, rooms: 1
+    Property::Search.create cost: 1000..5000, rooms: 1..3 # fix size
   end
 
   specify do

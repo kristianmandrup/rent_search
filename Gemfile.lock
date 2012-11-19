@@ -93,6 +93,12 @@ PATH
       haml
 
 PATH
+  remote: /Users/kmandrup/private/repos/simple_range_validator
+  specs:
+    simple_range_validator (0.2.0)
+      activemodel
+
+PATH
   remote: /Users/kmandrup/private/repos/sugar-high
   specs:
     sugar-high (0.7.3)
@@ -100,12 +106,12 @@ PATH
 PATH
   remote: /Users/kmandrup/private/repos/timespan
   specs:
-    timespan (0.5.1)
+    timespan (0.5.2)
       activesupport (>= 3.0.0)
       chronic
       chronic_duration
       spanner
-      sugar-high (~> 0.7.2)
+      sugar-high (~> 0.7.3)
       xduration (~> 2.2)
 
 GEM
@@ -382,10 +388,11 @@ DEPENDENCIES
   ruby-stemmer
   shoulda
   shoulda-matchers
+  simple_range_validator (~> 0.2.0)!
   spork-rails (~> 3.2.0)
   sugar-high (~> 0.7.3)!
   symbolize (~> 4.2)!
-  timespan (~> 0.5.1)!
+  timespan (~> 0.5.2)!
   validates_timeliness
   validators
   wirble

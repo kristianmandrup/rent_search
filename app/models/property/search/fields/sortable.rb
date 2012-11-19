@@ -3,15 +3,15 @@ module Property::Search::Fields
     extend ActiveSupport::Concern
 
     included do
-      include_concern :sortable, from: 'Search'
+      include_concern :sortable, for: 'Search'
     end
 
     module ClassMethods
-      def ascenders
+      def asc_fields
         %w{date cost cost_sqm size rooms}
       end
 
-      def descenders
+      def desc_fields
         %w{rating cost cost_sqm size rooms}
       end
     end    

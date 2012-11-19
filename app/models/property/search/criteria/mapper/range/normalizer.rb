@@ -1,5 +1,5 @@
 # Use min max ranges from locale file
-class Property::Criteria::Mapper
+class Property::Search::Criteria::Mapper
   class Normalizer
     attr_reader :key, :value
     

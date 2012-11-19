@@ -1,50 +1,120 @@
 require 'spec_helper'
 
-describe Property::Criteria::Builder do
+describe Property::Search::Criteria::Builder do
   subject { builder }
 
-  let(:builder) { Property::Criteria::Builder.new criteria }
+  let(:builder) { Property::Search::Criteria::Builder.new search }
 
-  let(:criteria) { Property::Criteria.new }
+  let(:search) { create(:valid_property_search) }
 
   describe '#where_criteria' do
-  end
-
-  [:string, :number, :boolean, :list, :range, :timespan].each do |type|
     specify do
-      subject.send("#{type}_criteria").should_not be_nil
+      subject.where_criteria.should be_a Hash
+    end
+
+    specify do
+      subject.where_criteria.should_not be_empty
     end
   end
 
-  describe '#criteria_types' do
-    its(:criteria_types) { should == Property::Criteria.criteria_types }
+  describe '#builder_for' do
+    [:string, :number, :boolean].each do |type|
+      specify do
+        subject.builder_for(type).should be_a Property::Search::Criteria::Builder::Base
+      end
+    end
+
+    # list {"types"=>{"$in"=>["apartment"]}, "rooms"=>{"$in"=>[2, 3]}}
+    [:list, :range, :timespan].each do |type|
+      specify do
+        clazz_name = "Property::Search::Criteria::Builder::#{type.to_s.camelize}Criteria"
+
+        subject.builder_for(type).should be_a clazz_name.constantize
+      end
+    end
   end
 
-  describe '#criteria_fields_for' do
-    specify { subject.send(:criteria_fields_for, :range).should_not be_empty }
+  describe 'initialize search' do    
+    specify { subject.search.should == search }
   end
 
-  describe '#skip_value?' do
-    specify { subject.send(:skip_value?, :total_rent, 1000..2000).should == false }
-    specify { subject.send(:skip_value?, :total_rent, 0..50000).should == true }
-  end
+  describe 'protected' do
 
-  describe '#always_use_field?' do
-    specify { subject.send(:always_use_field?, 'country_code').should == true }
-    specify { subject.send(:always_use_field?, 'country').should == false }
-  end
+    describe 'type_builders' do
+      specify do
+        subject.type_builders.should_not be_empty
+        subject.type_builders.should_not include(:geo)
+      end
+    end
 
-  describe '#real_field_name' do
-    specify { subject.send(:criteria_field_name, :full_address).should == "position" }
-    specify { subject.send(:criteria_field_name, :total_rent).should == 'costs.monthly.total' }
-  end
+    describe 'make_builder type' do
+      specify do
+        subject.make_builder(:range).should be_a Property::Search::Criteria::Builder::RangeCriteria
+      end
 
-  describe '#criteria_field_name' do
-    specify { subject.send(:criteria_field_name, :full_address).should == "position" }
-    specify { subject.send(:criteria_field_name, :total_rent).should == 'costs.monthly.total' }
+      specify do
+        subject.make_builder(:range).search.should == search
+      end
 
-    [:country_code].each do |name|
-      specify { subject.send(:criteria_field_name, name).should == "address.#{name}" }
+      specify do
+        subject.make_builder(:range).criteria_type.should == 'range'
+      end
+    end
+
+    describe 'builder_class_for type' do
+      specify do
+        subject.builder_class_for(:range).should be_a Class
+      end
+    end
+
+    describe 'builder_class_name_for type' do
+      specify do
+        subject.builder_class_name_for(:range).should match /RangeCriteria$/
+      end
+    end
+
+    describe 'empty_builder' do
+      specify do
+        subject.empty_builder.build.should == {}
+      end
+    end
+
+    describe 'base_builder type' do
+      specify do
+        subject.base_builder(:string).should be_a Property::Search::Criteria::Builder::Base
+      end
+
+      specify do
+        subject.base_builder(:string).search.should == search
+      end
+    end
+
+    describe 'type_builder? type' do
+      specify do
+        subject.type_builder?(:string).should be_true
+      end
+
+      specify do
+        subject.type_builder?(:list).should be_true
+      end
+
+      specify do
+        subject.builder_for?(:unknown).should be_false
+      end            
+    end      
+
+    describe 'builder_for? type' do
+      specify do
+        subject.builder_for?(:string).should be_false
+      end
+
+      specify do
+        subject.builder_for?(:list).should be_true
+      end      
+
+      specify do
+        subject.builder_for?(:unknown).should be_false
+      end      
     end
   end
 end

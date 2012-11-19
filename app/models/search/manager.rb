@@ -9,7 +9,7 @@ class Search
     end
 
     def self.build
-      RangeSearch.new
+      search_class.new
     end
 
     # options
@@ -24,28 +24,36 @@ class Search
       # TODO - normalize criteria, filter out any non-valid keys/values
 
       history.push criteria
-      search = RangeSearch.create criteria
+      search = search_class.create criteria
 
       if options[:agent]
         search.create_agent_for user
       end
     end
 
+    def search_class
+      raise NotImplementedError, "Must be implemented by subclass"
+    end
+
     def storage
-      @storage ||= Search::History.new
+      @storage ||= history_class.new
     end
     alias_method :history, :storage
+
+    def history_class
+      search_class::History
+    end      
 
     protected
 
     def normalized criteria
       case criteria
-      when RangeSearch
+      when ::Search
         criteria.as_hash
       when Hash
         criteria
       else
-        raise ArgumentError, "Invalid criteria, was: #{criteria}, must be a RangeSearch or Hash"
+        raise ArgumentError, "Invalid criteria, was: #{criteria}, must be a Search or Hash"
       end
     end
 

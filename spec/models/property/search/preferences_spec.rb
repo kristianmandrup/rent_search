@@ -14,17 +14,21 @@ describe Property::Search::Preferences do
     end
   end
 
-  describe 'area_unit' do
+  specify do
+    subject.should be_a Property::Search::Preferences
+  end
+
+  it 'should have an area_unit' do
     subject.area_unit.should == 'sqm'
   end
 
-  describe 'currency' do
+  it 'should have a currency' do
     subject.currency.should == 'EUR'
   end
 
   describe 'area_unit=' do
     it 'should set currency' do
-      Property::Search::Preferences.new(area_unit: 'sqfeet').currency.should == 'sqfeet'
+      Property::Search::Preferences.new(area_unit: 'sqfeet').area_unit.should == 'sqfeet'
     end
   end
 

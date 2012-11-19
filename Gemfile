@@ -31,7 +31,7 @@ gem 'classy_enum-mongoid', github: 'kristianmandrup/classy_enum-mongoid'
 gem 'kaminari'
 
 gem 'origin-selectable_ext'
-gem 'timespan', '~> 0.5.1', path: '/Users/kmandrup/private/repos/timespan'
+gem 'timespan', '~> 0.5.2', path: '/Users/kmandrup/private/repos/timespan'
 gem 'phone', '~> 1.1', github: 'kristianmandrup/phone'
 
 # VALIDATORS
@@ -56,7 +56,10 @@ gem 'dbf'
 gem 'georuby'
 gem 'geonames_local', github: 'nofxx/geonames_local' # Downloads and store Geonames.org data locally
 
+# Enums for mongoid!
 gem 'symbolize', '~> 4.2', github: 'nofxx/symbolize'
+
+gem 'simple_range_validator', '~> 0.2.0', path: '/Users/kmandrup/private/repos/simple_range_validator'
 
 # UI
 gem 'formtastic'

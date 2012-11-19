@@ -8,6 +8,9 @@ module Property::Search::Fields
           field name, type: clazz, default: default_value(name)
         end
       end
+
+      # for geo helper, used in calculating point
+      include_concern :geo, for: 'Property::Search'      
     end
 
     module ClassMethods
@@ -42,8 +45,9 @@ module Property::Search::Fields
           string:     %w{furnishment full_address country_code currency size_unit},
           boolean:    %w{shared},
           number:     %w{radius},
-          list:       %w{types},
-          range:      %w{total_rent sqm sqfeet rentability rating rooms},
+          list:       %w{types rooms},
+          # cost_sqm cost_sqfeet ??
+          range:      %w{cost sqm sqfeet rentability rating},
           timespan:   %w{period},
           geo:        %w{point},
         }
@@ -54,8 +58,10 @@ module Property::Search::Fields
       end
 
       def field_names
-        type_names.values
+        type_names.values.flatten
       end  
+      alias_method :search_fields, :field_names
+      alias_method :all_fields, :field_names
     end
   end
 end

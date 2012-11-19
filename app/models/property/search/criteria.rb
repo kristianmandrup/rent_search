@@ -20,13 +20,5 @@ class Property::Search
     def near_criteria
       [point, radius, units: distance_unit]
     end
-
-    def geo_helper
-      @geo_helper ||= GeoHelper.new
-    end
-
-    def calc_point address
-      geo_helper.calc_point address
-    end
   end
 end

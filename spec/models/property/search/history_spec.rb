@@ -2,7 +2,7 @@ require 'spec_helper'
 
 require 'models/property/searcher/controller'
 
-describe Property::Searcher::History do
+describe Property::Search::History do
   include ::CriteriaSpecHelper
 
   let(:params) do
@@ -33,7 +33,7 @@ describe Property::Searcher::History do
       context 'criteria' do
         subject { history }
 
-        let(:history) { Property::Searcher::History.new 10 }
+        let(:history) { Property::Search::History.new 10 }
         
         let(:search_1) do
           {"radius"=>"2", "location"=>"Vesterbro"}

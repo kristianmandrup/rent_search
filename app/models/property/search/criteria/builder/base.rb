@@ -6,16 +6,16 @@ class Property::Search::Criteria::Builder
 
     def initialize search, type = nil
       @search = search
-      @type = type if type
+      @type = type.to_s if type
     end
 
     # builds the criteria hash
     def build
-      # criteria_fields_for(criteria_type).inject({}) do |criteria_hash, field|        
-      #   value = field_value field      
-      #   set_criteria(criteria_hash, field, value) unless skip?(field, value)
-      #   criteria_hash
-      # end
+      criteria_fields.inject({}) do |criteria_hash, field|
+        value = field_value field      
+        set_criteria(criteria_hash, field, value) unless skip?(field, value)
+        criteria_hash
+      end
     end  
 
     def set_criteria criteria_hash, field, value
@@ -34,8 +34,9 @@ class Property::Search::Criteria::Builder
       search.send(field)
     end
 
-    def criteria_fields_for
-      Property::Search::Criteria.fields_for(criteria_type) - Property::Search::Criteria.exclude_fields
+    # Filter !?
+    def criteria_fields
+      search_class.fields_for(criteria_type) # - search_class::Criteria.exclude_fields
     end
 
     def skip? field, value
@@ -43,7 +44,13 @@ class Property::Search::Criteria::Builder
     end
 
     def filter field, value
-      @filter ||= Property::Search::Criteria::Builder::Filter.new field, value
+      @filter ||= search_class::Criteria::Builder::Filter.new field, value
+    end
+
+    protected
+
+    def search_class
+      Property::Search
     end
   end
 end

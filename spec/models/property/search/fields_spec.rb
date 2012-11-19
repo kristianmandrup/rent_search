@@ -2,22 +2,41 @@ require 'spec_helper'
 
 class FieldDoc
   include BasicDocument
-  include Property::Criteria::Fields
+  include Property::Search::Fields
 end
 
-describe Property::Criteria::Fields do
+describe Property::Search::Fields do
 
   let(:clazz) { FieldDoc }
 
   describe 'class methods' do
     subject { clazz }
 
-    specify { subject.criteria_type_map.keys.should include(:string) }
+    specify { subject.type_names.keys.should include(:string) }
 
     specify do    
-      Property::Criteria.fields_for(:string).should include('country_code')
+      clazz.fields_for(:string).should include('country_code')
     end
 
-    its(:search_fields) { should include('type', 'shared') }    
+    its(:search_fields) { should include('types', 'shared') }    
+    its(:all_fields)    { should include('types', 'shared') }
+  end
+
+  describe 'Concerns' do
+    describe 'type_mapping' do
+      pending 'TODO - use shared ex'
+    end
+
+    describe 'setters' do
+      pending 'TODO - use shared ex'
+    end
+
+    describe 'validations' do
+      pending 'TODO - use shared ex'
+    end
+
+    describe 'sortable' do
+      pending 'TODO - use shared ex'
+    end
   end
 end

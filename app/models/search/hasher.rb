@@ -3,7 +3,7 @@ class Search
     extend ActiveSupport::Concern
 
     def as_hash type = nil
-      subject_class.all_fields.inject({}) do |res, name|
+      subject_class.all_fields.flatten.inject({}) do |res, name|
         hash = hash_for(name, type)
         res.merge! hash if hash
         res

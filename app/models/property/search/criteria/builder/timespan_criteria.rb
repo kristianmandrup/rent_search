@@ -1,9 +1,11 @@
 class Property::Search::Criteria::Builder
   class TimespanCriteria < Base
     def set_criteria criteria_hash, field, value
+      puts "set_criteria: #{field}, #{value}"
       c = creator(field, value)
       criteria_hash[c.start_path] = {'$gte' => c.start_secs }
       criteria_hash[c.end_path]   = {'$lte' => c.end_secs }
+      criteria_hash
     end    
 
     protected
@@ -17,7 +19,8 @@ class Property::Search::Criteria::Builder
 
       attr_reader :criteria_builder, :field, :value
 
-      def initialize field, value
+      def initialize criteria_builder, field, value
+        @criteria_builder = criteria_builder
         @field, @value = [field, value]
       end
 
@@ -38,6 +41,11 @@ class Property::Search::Criteria::Builder
       end
 
       protected
+
+      # delegate to builder Search class?
+      def period_field
+        :period
+      end
 
       def criteria_field
         @criteria_field ||= criteria_field_name(field)
