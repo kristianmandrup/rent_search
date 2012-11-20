@@ -7,15 +7,21 @@ class Search
     # The name can be mapped to a specific field_name
     #   date -> publish_date
 
-    def initialize name = nil, direction = nil
-      # @field     = name
-      # @direction = direction
+    # TODO: use OptionsNormalizer
+    def initialize *args
+      options = options_normalizer(*args).normalize
+      name = options[:field]
+      direction = options[:direction]
 
       name       ||= default_field
       @name      = label name
       @field     = field_name(name) || default_field
       @direction = direction || default_direction   
     end
+
+    def options_normalizer *args
+      @options_normalizer ||= Searcher::Sort::OptionsNormalizer.new *args
+    end    
 
     def valid?
       valid_direction?(direction) && valid_field?(field)
@@ -59,6 +65,10 @@ class Search
     def field_name name
       name
     end    
+
+    def allow_any_field?
+      true
+    end
 
     # or raise not implemented?
     def calculator_class

@@ -7,24 +7,30 @@ class Searcher
     end
 
     def sort_order_calculator calculator_class
+      raise ArgumentError, "Must be a class, was: #{calculator_class}" unless calculator_class.kind_of?(Class)
       sorter.sort_order.calculator_class = calculator_class
       self
     end
 
-    def sorted_by sort_options
-      @sort_options = sort_options
+    def sorted_by *args      
+      @sort_options = options_normalizer(*args).normalize
       self
     end
     alias_method :sort_by,    :sorted_by
     alias_method :order_by,   :sorted_by
     alias_method :ordered_by, :sorted_by
 
-    def sort_options
-      @sort_options ||= {}
+    def options_normalizer *args
+      @options_normalizer ||= Searcher::Sort::OptionsNormalizer.new *args
     end
 
+    # uses sort_options
     def sorter_options
       sort_options.keep_only(Searcher::Sorter.options_allowed)
+    end
+
+    def sort_options
+      @sort_options ||= {}
     end
 
     def ordered result = nil

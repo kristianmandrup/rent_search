@@ -2,13 +2,20 @@ class Searcher
   module Criteria
     extend ActiveSupport::Concern
 
-    # Criteria knows how to build the Search criteria
-    def criteria_class
-      raise NotImplementedError, "Must be implemented by subclass"
+    def criteria
+      @criteria ||= {}
     end
 
-    def criteria_hash
-      @criteria_hash ||= filter.apply_on(criteria)
+    def criteria_builder
+      @search_builder ||= criteria_class.new options
+    end  
+
+    def criteria_class
+      search_class::Criteria
+    end
+
+    def filtered_criteria
+      @filtered_criteria ||= filter.apply_on(criteria)
     end
 
     def search_criteria

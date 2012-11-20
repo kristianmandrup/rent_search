@@ -34,24 +34,6 @@ describe Property::Search::Criteria::Mapper::Ranges::Normalizer do
     specify do
       subject.range_map[:size].should == (5..500)
     end
-
-    describe 'a_range' do
-      specify do
-        subject.a_range("50-100").should == [50, 100]
-      end
-    end
-
-    describe 'parse_plus' do
-      specify do
-        subject.parse_plus("+50").should == [50, 900000000]
-      end
-    end
-
-    describe 'parse_minus' do
-      specify do
-        subject.parse_minus("50-").should == [0, 50]
-      end
-    end
   end
 
   context 'size +50' do
@@ -79,6 +61,66 @@ describe Property::Search::Criteria::Mapper::Ranges::Normalizer do
 
     describe '.normalized' do
       its(:normalized) { should == (5..50) }
+    end
+  end
+
+  context 'size < 40' do
+    let(:normalizer) { clazz.new :size, '< 40' }
+
+    describe 'range_of(value)' do
+      specify do
+        subject.range_of('< 40').should == (0..39)
+      end
+    end
+  end
+
+  context 'size > 120' do
+    let(:normalizer) { clazz.new :size, '> 120' }
+
+    describe 'range_of(value)' do
+      specify do
+        subject.range_of('> 120').should == (121..900000000)
+      end
+    end
+  end
+
+  context 'size less than 120' do
+    let(:normalizer) { clazz.new :size, 'less than 120' }
+
+    describe 'range_of(value)' do
+      specify do
+        subject.range_of('less than 120').should == (0..119)
+      end
+    end
+  end
+
+  context 'size more than 120' do
+    let(:normalizer) { clazz.new :size, 'more than 120' }
+
+    describe 'range_of(value)' do
+      specify do
+        subject.range_of('more than 120').should == (121..900000000)
+      end
+    end
+  end
+
+  context 'size 120 or more ' do
+    let(:normalizer) { clazz.new :size, '120 or more' }
+
+    describe 'range_of(value)' do
+      specify do
+        subject.range_of('120 or more').should == (120..900000000)
+      end
+    end
+  end
+
+  context 'size 120 or less' do
+    let(:normalizer) { clazz.new :size, '120 or less' }
+
+    describe 'range_of(value)' do
+      specify do
+        subject.range_of('120 or less').should == (0..120)
+      end
     end
   end
 

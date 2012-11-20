@@ -14,12 +14,20 @@ describe Property::Search::Criteria::Filter do
     
     subject { counter }
 
-    let(:searcher) { Property::Searcher.new }
-    let(:search) { searcher.execute }
-    
-    # let(:search)  { create :valid_property_search }
+    # let(:searcher)  { Property::Searcher.new }
+    # let(:search)    { searcher.execute }
 
-    let(:counter) { Property::Search::Criteria::Filter::RangeCounter.new search }
+    let(:search)      { create :valid_property_search }    
+    # let(:criteria)    { search.where }
+    let(:criteria)    { SearchableProperty.all }
+
+    let(:counter) { Property::Search::Criteria::Filter::RangeCounter.new criteria }
+
+    describe '.search' do
+      specify do
+        subject.search.should == criteria
+      end
+    end
 
     describe '.min' do
       specify do

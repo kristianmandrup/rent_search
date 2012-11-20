@@ -9,7 +9,7 @@
 # - decide criteria to filter out, not to be used in the searching
 
 class Searcher
-  attr_reader :options, :criteria
+  attr_reader :options
   attr_reader :results
 
   include_concerns :paging, :sorting, :filtering, :criteria, :config
@@ -19,31 +19,27 @@ class Searcher
   # Create the searcher with basic config options, use pager and/or orderer/sorter
   #   searcher = Searcher.new(:pager)
 
-  # Then on each execution configure display and finder options and execute!
-  #   searcher.display(page: 1).find(criteria).execute
+  # Then on each execution configure display, finder and filter options and execute!
+  #   Examples:
+  #
+  #   searcher.display(page: 1).find(criteria).only(:rooms).execute
+  #   searcher.display(page: 1).find(rooms: 2..4, size: '+50').except(:rooms).execute
+
+  #   searcher.display(page: 1).find(rooms: '2-3').except(:size).execute
 
   def initialize options = {}
     @options = normalize_options options    
   end
 
   # criteria
-  #   - hash of search criteria
-  def find criteria = {}    
+  #   - hash of search criteria to use (if not filtered)
+  def find criteria = {}
+    raise ArgumentError, "Criteria must be a hash" unless criteria.kind_of?(Hash)    
     @criteria = criteria
     self
   end
 
-  # Array of symbols to filter out from criteria
-  def only *filter_list
-    filter.only_list = filter_list.flatten
-  end
-
-  # Array of symbols to filter out from criteria
-  def except *filter_list
-    filter.except_list = filter_list.flatten
-  end
-
-  # Do the search!!
+  # Execute the search!!
   def execute
     @results ||= perform_search
   end
@@ -53,18 +49,48 @@ class Searcher
     search.execute
   end
 
-  # creates a Search model from criteria hash
+  # creates a Search model using the Search builder
   def search
-    @search ||= search_builder.build_from criteria_hash
+    @search ||= search_builder.build
   end   
 
-  # The builder used to build a Search model from a criteria hash
+  # The builder used to build a Search model from:
+  #   - filtered criteria hash
+  #   - preferences
   def search_builder
-    @search_builder ||= criteria_class.new options
+    @search_builder ||= search_builder_class.new(filtered_criteria, preferences)
   end  
 
   delegate :order, to: :sorter
   delegate :page,  to: :pager   
+
+  def search_builder_class
+    search_class::Builder
+  end
+
+  # Criteria knows how to build the Search criteria
+  def search_class
+    raise NotImplementedError, "Must be implemented by subclass"
+  end
+
+  def preferences
+    @preferences ||= pref_class.new pref_options if options == nil
+  end
+
+  def set_preferences options = {}    
+    raise ArgumentError, "Options must be a hash" unless options.kind_of?(Hash)
+    @pref_options = options
+    @preferences = nil # reset
+  end
+
+  def pref_options
+    @pref_options ||= {}
+  end
+
+  def pref_class
+    search_class::Preferences
+  end
+  alias_method :preferences_class, :pref_class
 
   protected
 
@@ -77,8 +103,12 @@ class Searcher
     return paged(ordered) if paged? && ordered?
     return paged if paged? 
     return ordered if ordered?
-    search
+    basic_search    
   end 
+
+  def basic_search
+    search_result
+  end
 
   def to_s
     %Q{

@@ -5,7 +5,7 @@ class Property::Search::Criteria::Mapper::Ranges
     
     def initialize key, value
       @key = key
-      @value = value
+      @value = converter(value).convert
     end
 
     # Return the normal value in case it is not a Range!
@@ -54,58 +54,18 @@ class Property::Search::Criteria::Mapper::Ranges
 
     def range_of value
       return nil if value == 'any' || value.blank?
-      unless valid_parsed_range? parsed_range
+      unless parser(value).valid?
         raise ArgumentError, "Range must be a string of the form: 'x-y', '+x' or 'x-' where x (and y) are whole numbers, for #{key} was: #{value}"
       end
-      Range.new parsed_range.first, parsed_range.last
+      parser(value).range
     end
 
-    def parsed_range
-      @parsed_range ||= a_range(value) || more_than(value) || less_than(value)
+    def parser txt
+      @parser ||= Property::Search::Criteria::Mapper::Parser.new txt
     end
 
-    def less_than value
-      parse_minus(value) if less_expr? value
-    end
-
-    def more_than value
-      parse_plus(value) if more_expr? value
-    end
-
-    def valid_parsed_range? arr
-      arr.kind_of?(Array) && !(arr.first == nil)
-    end
-
-    def more_expr? value
-      value =~ /^\+\s*\d/
-    end
-
-    def less_expr? value
-      value =~ /\d\s*-$/
-    end
-
-    def separators
-      ['-', ':']
-    end
-
-    def a_range value
-      separators.map {|s| try_separator(value, s) }.compact.first
-    end
-
-    def try_separator value, separator
-      value.split(separator).map(&:to_i) if value =~ sep_expr(separator)
-    end
-
-    def sep_expr separator
-      /\d\s*#{separator}\s*\d/
-    end
-
-    def parse_plus value
-      [value.to_i, 900000000]
-    end    
-
-    def parse_minus value
-      [0, value.to_i]
+    def converter txt
+      Property::Search::Criteria::Mapper::Converter.new txt
     end    
   end
 end

@@ -7,6 +7,10 @@ class Search
       except filter_options[:except]
     end
 
+    def apply_on subject
+      applier_for(subject).apply
+    end
+
     def applier_for subject
       case subject
       when Hash

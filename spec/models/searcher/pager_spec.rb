@@ -39,9 +39,10 @@ describe Searcher::Pager do
     end
 
     specify do
-      # puts subject.execute(search_result).inspect
+      puts subject.execute(search_result).inspect
       subject.execute(search_result).options[:limit].should > 0
     end
+
     specify do
       subject.execute(search_result).options[:skip].should >= 0      
     end

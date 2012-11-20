@@ -3,7 +3,7 @@ class Search
 
   include_concerns :sortable #, :agentize
 
-  def where hash = {}
+  def execute hash = {}
     subject_class.where(hash)
   end
 
@@ -18,7 +18,7 @@ class Search
 
   def eql?( other )
     self == other
-  end 
+  end
    
   def hash
     raise NotImplementedError, "Must be implemented by subclass"

@@ -3,19 +3,18 @@ class Searcher
     attr_reader :sort_order
 
     def initialize *args
-      options = case args.first
-      when Hash
-        options = args.first
-      when Symbol
-        {field: args.first, direction: args[1] }
-      else
-        raise ArgumentError, "Invalid sorter args: #{args}"
-      end
+      options = options_normalizer(*args).normalize
 
       field     = options[:field]
       direction = options[:direction]      
 
       @sort_order ||= Search::SortOrder.new(field, direction)
+    end
+
+    delegate :field, :direction, to: :sort_order
+
+    def options_normalizer *args
+      @options_normalizer ||= Searcher::Sort::OptionsNormalizer.new *args
     end
 
     def calculated_sort_order

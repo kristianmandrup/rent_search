@@ -45,7 +45,7 @@ class Property
     end
 
     def subject_class
-      self.class
+      ::Property
     end
 
     protected

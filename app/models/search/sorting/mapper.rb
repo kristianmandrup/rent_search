@@ -4,10 +4,34 @@ module Search::Sorting
     #   direction::field
     # OR
     #   field::direction
+    attr_reader :sort_order
 
     def initialize sorting, options = {}
       # parses sorting into field and direction
-      Search::Sort::Mapper.new *(parse sorting, options), options 
+      @sort_order = Search::SortOrder.new parse(sorting, options)
+    end
+
+    def field
+      map! unless mapped?
+      calculator.field 
+    end
+
+    def direction
+      map! unless mapped?
+      calculator.direction if mapped?
+    end
+
+    def map!
+      calculator.calc!
+      @mapped = true
+    end
+
+    def mapped?
+      @mapped
+    end
+      
+    def calculator
+      @calculator ||= Search::SortOrder::Calculator.new sort_order
     end
 
     def parse sorting = nil, options = {}
@@ -15,7 +39,7 @@ module Search::Sorting
     end
 
     def parser sorting = nil, options = {}
-      Search::Display::Parser.new sorting, options
+      Search::Sorting::Parser.new sorting, options
     end
   end
 end

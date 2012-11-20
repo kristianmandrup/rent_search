@@ -16,7 +16,7 @@ class Property::Search::Criteria
         raise ArgumentError, "Must be a #{pref_clazz}, was: #{preferences}" unless valid_preferences? preferences
         raise ArgumentError, "Must be a Hash, was: #{criteria_hash}" unless criteria_hash.kind_of?(Hash)
 
-        builder_class(type).new criteria_hash, preferences
+        builder_class(type).new(criteria_hash, preferences).mapped_hash
       end
 
       def builder_class type

@@ -15,6 +15,8 @@ class Searcher
       self.new options
     end
 
+    delegate :empty?, to: :options
+
     # TODO: Use proper filter?
     def only *names
       options & names.flatten

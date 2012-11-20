@@ -1,7 +1,7 @@
 class Property
   class Searcher < ::Searcher
-    def criteria_class
-      Property::Search::Criteria
+    def search_class
+      Property::Search
     end
   end
 end

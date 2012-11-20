@@ -1,9 +1,10 @@
 class Property::Search
   class Builder
-    attr_reader :criteria
+    attr_reader :criteria, :preferences
 
-    def initialize criteria
+    def initialize criteria, preferences = nil
       @criteria = criteria
+      @preferences = preferences || pref_class.new
     end
 
     def build
@@ -13,6 +14,11 @@ class Property::Search
     def search_class
       Property::Search
     end
+
+    def pref_class
+      search_class::Preferences
+    end
+
 
     # Example:
     # {rooms: '1-2', size: '50-100', ...}

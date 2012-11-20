@@ -9,6 +9,10 @@ class Property::Search
       @currency = options[:currency] || default_currency
     end
 
+    def self.create_default
+      self.new
+    end
+
     validates :area_unit, presence: true
     validates :currency, presence: true
 

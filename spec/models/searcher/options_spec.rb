@@ -12,9 +12,17 @@ describe Searcher::Options do
     end
 
     describe 'create_from' do
+      let(:options) { Searcher::Options.create_from ordered: true, pager: false }
+
+      its(:ordered) { should be_true }
+      its(:paged)   { should be_false }
     end
 
     describe 'create_default' do
+      let(:options) { Searcher::Options.create_default }
+
+      its(:ordered) { should be_false }
+      its(:paged)   { should be_false }
     end
   end
 

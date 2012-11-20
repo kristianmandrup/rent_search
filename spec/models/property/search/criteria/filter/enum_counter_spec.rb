@@ -17,9 +17,10 @@ describe Property::Search::Criteria::Filter do
     # let(:searcher) { Property::Searcher.new }
     # let(:search)   { searcher.search }
 
-    let(:search)  { create :valid_property_search }
+    let(:search)      { create :valid_property_search }
+    let(:criteria)    { search.execute }    
 
-    let(:counter) { Property::Search::Criteria::Filter::EnumCounter.new search }
+    let(:counter) { Property::Search::Criteria::Filter::EnumCounter.new criteria }
 
     describe '.field_selector' do
       specify do

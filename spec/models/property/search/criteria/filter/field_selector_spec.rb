@@ -9,7 +9,7 @@ describe Property::Search::Criteria::Filter::FieldSelector do
 
   context '10 valid properties' do
     before :each do
-      5.times do |n|
+      10.times do |n|
         Delorean.time_travel_to(n.minutes.from_now) do
           create :valid_searchable_property
         end

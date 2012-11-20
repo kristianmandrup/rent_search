@@ -20,9 +20,13 @@ class Property::Search::Criteria::Filter
 
     def selected_field? name
       to_a.flatten.each do |item|
-        return name if item.send(name)
+        return name if field_value? item, name
       end
       nil
+    end
+
+    def field_value? item, name
+      item.respond_to?(name) && item.send(name)
     end
 
     def values_for *names            
