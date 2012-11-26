@@ -14,7 +14,7 @@ class Searcher
     delegate :field, :direction, to: :sort_order
 
     def options_normalizer *args
-      @options_normalizer ||= Searcher::Sort::OptionsNormalizer.new *args
+      @options_normalizer ||= Searcher::Sort::OptionsNormalizer.new args.flatten
     end
 
     def calculated_sort_order

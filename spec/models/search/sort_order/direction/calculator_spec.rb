@@ -8,6 +8,10 @@ class NiceSorter < Search::SortOrder::Calculator
   def desc_fields
     %w{cost}
   end
+
+  def allow_any_field?
+    false
+  end
 end
 
 class SortyOrder < Search::SortOrder
@@ -54,6 +58,14 @@ describe Search::SortOrder::Calculator::Direction::Calculator do
       let(:sort_order) do
         order_clazz.new :date, :desc
       end
+
+      specify {
+        sort_order.allow_any_field?.should be_false
+      }
+
+      specify {
+        calculator.allow_any_field?.should be_false
+      }
 
       it 'should reverse direction to valid for field' do
         calculator.calc.should == :asc

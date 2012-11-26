@@ -1,4 +1,4 @@
-class Property::Display
+class Property::Search::Criteria::Display
 
   # Used to return the Array displayed in the ms-dropdowns Sorting dialog
   class SortOptions
@@ -6,7 +6,9 @@ class Property::Display
 
     # order must be a SortOrder
     def initialize sort_order = nil
-      raise ArgumentError, "Must be a SortOrder, was: #{sort_order}"
+      unless sort_order.kind_of?(Property::Search::SortOrder)
+        raise ArgumentError, "Must be a SortOrder, was: #{sort_order}"
+      end
       @sort_order = sort_order
     end
 
@@ -25,13 +27,13 @@ class Property::Display
 
       # options_hash - retrieved from YAML file
       list = options_hash.inject([]) do |res, option|        
-        res << calculator(option).calc
+        res << calculator(option).select_option
         res
       end
     end
 
     def calculator option
-      @sort_option ||= Calculator.new sort_order, option
+      Calculator.new sort_order, option
     end
 
     # In the form:
@@ -46,7 +48,7 @@ class Property::Display
     #       asc: cheapest
     #       desc: costliest
     def options_hash
-      I18n.t("search_form.sort.options")
+      I18n.t("property.sort.options")
     end    
   end
 end

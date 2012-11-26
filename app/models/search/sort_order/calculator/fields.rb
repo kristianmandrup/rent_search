@@ -13,7 +13,7 @@ class Search::SortOrder::Calculator
     end
 
     def sort_fields
-      @sort_fields ||= fields(:asc) | fields(:desc)
+      @sort_fields ||= (fields(:asc) | fields(:desc)).map(&:to_sym)
     end
   end
 end

@@ -64,6 +64,14 @@ PATH
     RubyDataStructures (1.1.0)
 
 PATH
+  remote: /Users/kmandrup/private/repos/apotomo
+  specs:
+    apotomo (1.2.4)
+      cells (>= 3.6.7)
+      hooks (~> 0.2.0)
+      onfire (~> 0.2.0)
+
+PATH
   remote: /Users/kmandrup/private/repos/classy_enum
   specs:
     classy_enum (3.1.1)
@@ -91,12 +99,6 @@ PATH
   specs:
     jquery_ui_rails_helpers (0.2.0)
       haml
-
-PATH
-  remote: /Users/kmandrup/private/repos/simple_range_validator
-  specs:
-    simple_range_validator (0.2.0)
-      activemodel
 
 PATH
   remote: /Users/kmandrup/private/repos/sugar-high
@@ -157,6 +159,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    cells (3.8.5)
+      actionpack (~> 3.0)
+      railties (~> 3.0)
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.8.0)
@@ -212,6 +217,7 @@ GEM
     haml (3.1.7)
     hashie (1.2.0)
     hike (1.2.1)
+    hooks (0.2.1)
     i18n (0.6.1)
     interactive_editor (0.0.10)
       spoon (>= 0.0.1)
@@ -245,6 +251,7 @@ GEM
     multi_json (1.3.7)
     nokogiri (1.5.5)
     numerizer (0.1.1)
+    onfire (0.2.0)
     origin (1.0.10)
     origin-selectable_ext (0.1.1)
       origin
@@ -308,6 +315,8 @@ GEM
     shoulda-context (1.0.0)
     shoulda-matchers (1.3.0)
       activesupport (>= 3.0.0)
+    simple_range_validator (0.2.1)
+      activemodel
     spanner (0.0.2)
     spoon (0.0.1)
     spork (1.0.0rc3)
@@ -344,6 +353,7 @@ PLATFORMS
 DEPENDENCIES
   RubyDataStructures!
   ajaxify_rails
+  apotomo (~> 1.2.3)!
   awesome_print
   capybara (>= 1.1.2)
   classy_enum!
@@ -388,7 +398,7 @@ DEPENDENCIES
   ruby-stemmer
   shoulda
   shoulda-matchers
-  simple_range_validator (~> 0.2.0)!
+  simple_range_validator (~> 0.2.1)
   spork-rails (~> 3.2.0)
   sugar-high (~> 0.7.3)!
   symbolize (~> 4.2)!

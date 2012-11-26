@@ -10,6 +10,8 @@ class Search::SortOrder
     include_concern :validation, for: 'Search::SortOrder::Calculator::Direction'
     include_concern :validation, for: 'Search::SortOrder::Calculator::Field'
 
+    include_concern :validator, for: 'Search::SortOrder::Calculator::Direction'
+
     # Calculates the new sort order given a SortOrder object
     def initialize sort_order
       unless sort_order.kind_of?(Search::SortOrder)
@@ -20,6 +22,8 @@ class Search::SortOrder
 
     alias_method :sort_field,     :field
     alias_method :sort_direction, :direction
+
+    delegate :name, to: :sort_order
 
     def calc!
       @field      = calc_field_name
@@ -54,7 +58,7 @@ class Search::SortOrder
     end
 
     def sort_fields
-      asc_fields | desc_fields
+      (asc_fields | desc_fields).map(&:to_sym)
     end
   end
 end

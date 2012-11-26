@@ -58,6 +58,7 @@ class Searcher
   #   - filtered criteria hash
   #   - preferences
   def search_builder
+    puts search_builder_class
     @search_builder ||= search_builder_class.new(filtered_criteria, preferences)
   end  
 
@@ -65,7 +66,7 @@ class Searcher
   delegate :page,  to: :pager   
 
   def search_builder_class
-    search_class::Builder
+    "#{search_class}::Builder".constantize
   end
 
   # Criteria knows how to build the Search criteria

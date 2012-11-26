@@ -45,7 +45,7 @@ class Property
     end
 
     def subject_class
-      ::Property
+      ::SearchableProperty
     end
 
     protected

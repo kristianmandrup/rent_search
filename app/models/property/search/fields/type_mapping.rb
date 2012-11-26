@@ -53,6 +53,14 @@ module Property::Search::Fields
         }
       end
 
+      def field_type_of field
+        reverted_type_names[field.to_s]
+      end
+
+      def reverted_type_names
+        @reverted_type_names ||= type_names.revert
+      end
+
       def criteria_types
         type_names.keys
       end

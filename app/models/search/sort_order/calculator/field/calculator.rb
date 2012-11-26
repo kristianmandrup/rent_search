@@ -24,6 +24,6 @@ module Search::SortOrder::Calculator::Field
       @field_name = valid_field?(field_name) ? field_name : default_field
     end
 
-    delegate :direction, :field, :default_field, to: :sort_order
+    delegate :name, :direction, :field, :default_field, to: :sort_order
   end
 end

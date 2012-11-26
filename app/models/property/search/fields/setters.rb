@@ -12,6 +12,26 @@ module Property::Search::Fields
       write_attribute :country_code, value
     end
 
+    def location= value
+      self.full_address = value
+    end
+
+    def location
+      full_address
+    end
+
+    def period_from= from
+    end
+
+    def period_to= to
+    end
+
+    def period_from
+    end
+
+    def period_to
+    end
+
     # TODO: Use global config
     def valid_country_code? country_code
       valid_country_codes.include? country_code

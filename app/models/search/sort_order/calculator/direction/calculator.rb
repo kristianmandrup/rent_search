@@ -19,6 +19,7 @@ module Search::SortOrder::Calculator::Direction
 
     def calc dir = nil
       @direction = dir || sort_order.direction
+      # log_valid
       normalize! unless valid?
       direction
     end
@@ -27,8 +28,13 @@ module Search::SortOrder::Calculator::Direction
       valid_direction?(direction) && valid_field_direction?(direction)
     end
 
-    delegate :field, :default_field, :default_direction,  to: :sort_order
-    delegate :valid_direction?, :sort_fields_for,         to: :sort_order
+    def log_valid
+      puts "allow_any_field? #{allow_any_field?} dir_fields: #{dir_fields(direction)}"
+      puts "valid_direction? #{valid_direction?(direction)} && valid_field_direction? #{valid_field_direction?(direction)}"
+    end
+
+    delegate :name, :field, :default_field, :default_direction,  to: :sort_order
+    delegate :valid_direction?, :sort_fields_for,                to: :sort_order
 
     alias_method :sort_direction, :direction
     alias_method :sort_field,     :field

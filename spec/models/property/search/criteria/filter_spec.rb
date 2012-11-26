@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Property::Criteria::Filter do
+describe Property::Search::Criteria::Filter do
   subject { criteria_filter }
 
   def field_clazz_for name
@@ -20,7 +20,7 @@ describe Property::Criteria::Filter do
     
     let(:searcher) { Property::Searcher.new }
 
-    let(:criteria_filter) { Property::Criteria::Filter.new searcher }
+    let(:criteria_filter) { Property::Search::Criteria::Filter.new searcher }
 
     describe '.search' do
       specify do

@@ -1,80 +1,44 @@
 require 'spec_helper'
 
-describe Property::SortOptions do
-  subject { options }
+describe Property::Search::Criteria::Display::SortOptions do
+  subject { sort_options }
   
-  let(:options) { sort_options.options }
+  let(:clazz)             { Property::Search::Criteria::Display::SortOptions }
+  
+  let(:sort_order_class)  { Property::Search::SortOrder }
+  let(:sort_order)        { sort_order_class.new :asc, :cost }
+  
+  let(:sort_options)      { clazz.new sort_order }
 
   before :all do
     I18n.default_locale = :en
   end
 
-  describe 'default options' do
-    let(:sort_options) { Property::SortOptions.new }
+  describe 'selector_options' do
+    let(:sort_order) { sort_order_class.new :asc, :date }
 
-    describe 'defaults_for(:asc)' do
-      specify do
-        # puts "ascenders: #{sort_options.defaults_for(:asc)}"
+    subject { sort_options.selector_options }
 
-        sort_options.defaults_for(:asc).should include(:cost)
-        sort_options.defaults_for(:asc).should_not include(:rating)
-      end
-    end
+    specify {
+      sort_order.allow_any_field?.should be_false
+    }
 
-    describe 'defaults_for(:desc)' do
-      specify do
-        # puts "descenders: #{sort_options.defaults_for(:desc)}"
+    # specify do
+    #   sort_options.dir_calculator.sort_order.should == sort_order
+    # end
 
-        sort_options.defaults_for(:desc).should_not include(:cost)
-        sort_options.defaults_for(:desc).should include(:rating)
-      end
-    end
+    # specify do
+    #   sort_options.dir_calculator.calc(:desc).should == :asc
+    # end
 
-    describe 'add_sort_field :desc, :cost' do
-      let(:dir_labels) do
-        {asc: 'cheapest', desc: 'costliest'}
-      end
-
-      specify do
-        sort_options.add_sort_field(:desc, :cost, dir_labels).should be_nil
-      end
-
-      specify do
-        sort_options.add_sort_field(:asc, :cost, dir_labels).should_not be_nil
-      end
-    end
-
-    describe 'add_sort_field :date' do
-      let(:dir_labels) do
-        {asc: 'soonest'}
-      end
-
-      specify do
-        sort_options.add_sort_field(:asc, :date, dir_labels).should_not be_nil
-      end      
-
-      specify do
-        sort_options.add_sort_field(:desc, :date, dir_labels).should be_nil
-      end      
-    end
-
-    specify do
-      # puts subject.inspect
-      subject.should be_an Array
-      subject.first.should == ["soonest", "date::asc", {:class=>"ascending"}]
-      subject.should include ["most rooms", "rooms::desc", {:class=>"descending"}]
-
-      subject.should_not include(["costliest", "cost::desc", {:class=>"descending"}])
-      subject.should include(["cheapest", "cost::asc", {:class=>"ascending"}])
-    end
-  end  
-
-  describe 'options :cost ' do
-    let(:sort_options) { Property::SortOptions.new :cost }
+    specify {
+      sort_options.allow_any_field?.should be_false
+    }
 
     specify do
       # puts subject
       subject.first.should == ["soonest", "date::asc", {:class=>"ascending"}]
+      
       subject.should include ["most rooms", "rooms::desc", {:class=>"descending"}]
 
       subject.should include(["costliest", "cost::desc", {:class=>"descending"}])

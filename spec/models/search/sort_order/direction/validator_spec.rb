@@ -11,6 +11,7 @@ class DirValidator
 
   alias_method :sort_direction, :direction
   alias_method :sort_field, :field
+  alias_method :name, :field
 
   def default_direction
     :asc
@@ -22,6 +23,10 @@ class DirValidator
 
   def sort_fields_for dir = :asc
     send "#{dir}_fields"
+  end
+
+  def allow_any_field?
+    false
   end
 
   def asc_fields
@@ -125,11 +130,11 @@ describe Search::SortOrder::Calculator::Direction::Validator do
         end    
 
         specify do
-          validator.dir_fields(:desc).should == ['cost']
+          validator.dir_fields(:desc).should include(:cost)
         end    
 
         specify do
-          validator.dir_fields(:asc).should include('cost', 'date')
+          validator.dir_fields(:asc).should include(:date, :cost)
         end    
       end
     end

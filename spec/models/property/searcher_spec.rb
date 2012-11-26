@@ -11,7 +11,7 @@ describe Property::Searcher do
 
   describe 'init' do
     context 'no args' do
-      let(:searcher) { Searcher.new }
+      let(:searcher) { clazz.new }
 
       it 'should have no options' do
         searcher.options.should be_empty
@@ -20,12 +20,12 @@ describe Property::Searcher do
 
     context 'with invalid searcher_options' do
       specify do 
-        expect { Searcher.new 'my search' }.to raise_error(ArgumentError)
+        expect { clazz.new 'my search' }.to raise_error(ArgumentError)
       end
     end
 
     context 'with valid searcher_options' do
-      let(:searcher) { Searcher.new valid_options }
+      let(:searcher) { clazz.new valid_options }
 
       it 'should not have searcher options' do
         searcher.options.should_not be_empty
@@ -100,74 +100,6 @@ describe Property::Searcher do
       specify do
         subject.search_builder.preferences.should be_a searcher.pref_class
       end
-    end
-
-    context 'Searching' do
-      specify do
-        subject.paged?.should be_true
-      end
-
-      describe 'search' do
-        specify do
-          subject.search.should be_a searcher.search_class
-        end
-      end  
-
-      describe 'search_result' do
-        let(:result) { subject.execute }
-
-        specify do
-          # puts result.inspect
-          subject.search_result.should be_a Mongoid::Criteria
-        end
-
-        specify do
-          result.inspect.should match /class:\s+Property/
-        end
-
-        specify do
-          result.options.should == {:limit=>20, :skip=>0}
-        end
-      end
-
-      describe 'paged' do
-        specify do
-          puts subject.paged.inspect
-          subject.paged.should be_a Mongoid::Criteria
-        end
-      end
-
-      describe 'execute' do
-        specify do
-          puts subject.execute.inspect
-          subject.execute.should be_a Mongoid::Criteria
-        end
-
-        specify do
-          # puts subject.execute.inspect
-          subject.execute.should == subject.paged(subject.ordered)
-        end
-
-        context 'page 2 padding 5, sorted :cost ascending' do
-          let(:searcher) { clazz.new(valid_options).display(page: 2, padding: 5).sorted_by(:cost, :asc) }
-
-          specify do
-            subject.pager.page.should == 2
-          end
-
-          specify do
-            subject.pager.padding.should == 5
-          end
-
-          specify do
-            subject.sorter.field.should == :cost
-          end
-
-          specify do
-            subject.sorter.direction.should == :asc
-          end
-        end
-      end    
     end
   end
 end

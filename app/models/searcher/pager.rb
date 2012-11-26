@@ -3,7 +3,7 @@ class Searcher
     attr_reader :page, :per_page, :padding
 
     def initialize options = {}
-      raise ArgumentError, "Options must be a hash" unless options.kind_of?(Hash)    
+      raise ArgumentError, "Options must be a hash, was: #{options}" unless options.kind_of?(Hash)    
       @page  = options[:page] || default_page
       @per_page     = options[:per_page]
       @padding      = options[:padding]

@@ -19,9 +19,25 @@ class Property::Search::Criteria::Mapper
     # Uses normalizer
     def normalized_criteria
       @normalized_criteria ||= criteria_hash.inject({}) do |res, (key, value)|
-        map_key(key)
-        res.merge! key => send("normalize", key, value)
+        field = map_key(key)
+        res.merge! field => calc_value(field, value)
+        res
       end
+    end
+
+    def calc_value field, value
+      return value if value.nil?
+      value.trim!
+      normalize_range?(field) ? normalize(field, value) : value
+    end
+
+
+    def normalize_range? field
+      [:range, :list].include? field_type_of(field)
+    end
+
+    def field_type_of field
+      Property::Search.field_type_of field
     end
 
     def normalize key, value

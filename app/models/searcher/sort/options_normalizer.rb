@@ -4,13 +4,17 @@ class Searcher
       attr_reader :args
 
       def initialize *args
-        @args = args
+        @args = *args
       end
 
       def normalize
+        @args.flatten! if args.first.kind_of?(Array)
         options = case args.first
         when Hash
-          options = args.first
+          hash = args.first
+          hash.inject({}) do |h, (k, v)|
+            h.merge! k => v.to_sym
+          end  
         when Symbol, String
           field, direction = args
 
@@ -19,7 +23,7 @@ class Searcher
             field, direction = direction, field
           end
 
-          {field: field, direction: direction }
+          {field: field.to_sym, direction: direction.to_sym }
         else
           raise ArgumentError, "Invalid sorter args: #{args}"
         end

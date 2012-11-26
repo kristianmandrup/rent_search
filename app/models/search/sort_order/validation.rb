@@ -11,8 +11,8 @@ class Search::SortOrder
         raise ArgumentError, "Must be a Search::SortOrder, was: #{sort_order}"
       end
       unless sort_order.valid?
-        invalid_field = sort_order.valid_field_name? ? "" : "invalid field: #{sort_order.field}"
-        invalid_dir = sort_order.valid_dir? ? "" : "invalid dir: #{sort_order.direction}"
+        invalid_field = sort_order.valid_field_name? ? "" : "invalid field: #{sort_order.name.inspect} for #{sort_order.send(:sort_fields)}"
+        invalid_dir = sort_order.valid_dir? ? "" : "invalid dir: #{sort_order.direction.inspect}"
 
         suggestion = ""
         if !invalid_field.blank? 

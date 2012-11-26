@@ -7,6 +7,8 @@ class Search
     # The name can be mapped to a specific field_name
     #   date -> publish_date
 
+    include_concern :reverser, for: 'Search::SortOrder::Calculator::Direction'
+
     # TODO: use OptionsNormalizer
     def initialize *args
       options = options_normalizer(*args).normalize
@@ -67,6 +69,7 @@ class Search
     end    
 
     def allow_any_field?
+      return calculator.allow_any_field? if calculator
       true
     end
 
@@ -79,9 +82,10 @@ class Search
     alias_method :sort_field,     :field
     alias_method :sort_direction, :direction
 
-    delegate :default_field, :default_direction,  to: :calculator
-    delegate :sort_fields,   :sort_fields_for,    to: :calculator
-    delegate :valid_direction?, :valid_field?,    to: :calculator
+    delegate :desc_fields, :asc_fields,              to: :calculator
+    delegate :default_field, :default_direction,     to: :calculator
+    delegate :sort_fields,   :sort_fields_for,       to: :calculator
+    delegate :valid_direction?, :valid_field?,       to: :calculator
 
     def calculator
       @calculator ||= calculator_class.new self

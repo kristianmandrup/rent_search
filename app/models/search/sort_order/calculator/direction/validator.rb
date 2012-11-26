@@ -19,11 +19,11 @@ module Search::SortOrder::Calculator::Direction
 
     def valid_field_direction? dir
       return true if allow_any_field?
-      dir_fields(dir).include? field.to_s
+      dir_fields(dir).include? name.to_sym
     end
 
     def dir_fields dir
-      sort_fields_for(dir).map(&:to_s)
+      sort_fields_for(dir).map(&:to_sym)
     end
   end
 end

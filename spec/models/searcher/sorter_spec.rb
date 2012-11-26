@@ -21,6 +21,16 @@ describe Searcher::Sorter do
     end
   end
 
+  describe 'options_normalizer' do
+    let(:sorter) do
+      Searcher::Sorter.new :cost, :desc
+    end
+
+    specify do
+      subject.options_normalizer.should be_a Searcher::Sort::OptionsNormalizer
+    end
+  end
+
   describe 'execute search_result' do
     let(:search_result) { Property.all }
 

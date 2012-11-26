@@ -6,9 +6,9 @@ class Search::SortOrder::Calculator
     #   sort_field::sort_direction 
     # OR 
     #   sort_direction::sort_field
-    def to_s
-      send("#{parser_type}_arr").join(separator)    
-    end
+    # def to_s
+    #   send("#{parser_type}_arr").join(separator)    
+    # end
 
     protected
 

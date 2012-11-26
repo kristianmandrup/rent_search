@@ -59,9 +59,11 @@ gem 'geonames_local', github: 'nofxx/geonames_local' # Downloads and store Geona
 # Enums for mongoid!
 gem 'symbolize', '~> 4.2', github: 'nofxx/symbolize'
 
-gem 'simple_range_validator', '~> 0.2.0', path: '/Users/kmandrup/private/repos/simple_range_validator'
+gem 'simple_range_validator', '~> 0.2.1'
 
 # UI
+gem 'apotomo', '~> 1.2.3', path: '/Users/kmandrup/private/repos/apotomo' # git: 'git://github.com/kristianmandrup/apotomo.git' 
+
 gem 'formtastic'
 gem 'haml'
 gem "jquery-rails"

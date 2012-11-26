@@ -4,6 +4,10 @@ class Property::Search::SortOrder
       :published_at
     end
 
+    def allow_any_field?
+      false
+    end
+
     # Retrieve from YAML file
     # %w{date published_at cost cost_sqm rentability}
     def asc_fields
@@ -18,11 +22,15 @@ class Property::Search::SortOrder
 
     protected
 
+    def dir_fields
+      @fields ||= {}
+    end
+
     # dir can be :asc or desc
     def fields_for dir
       dir = dir.to_sym
       raise ArgumentError, "Must be :asc or :desc" unless [:asc, :desc].include? dir
-      @ascenders ||= I18n.t('property.sort.options').inject([]) do |res, pair|
+      dir_fields[dir] ||= I18n.t('property.sort.options').inject([]) do |res, pair|
         res << pair.first if pair.last[dir]
         res
       end
