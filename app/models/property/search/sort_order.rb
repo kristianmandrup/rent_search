@@ -6,6 +6,14 @@ class Property::Search
       :published_at
     end
 
+    def allow_any_field?
+      false
+    end    
+
+    def default_options
+      {field: :date, direction: :asc}
+    end
+
     def label name
       case name.to_sym
       when :published_at
@@ -25,7 +33,7 @@ class Property::Search
     end
 
     def calculator_class
-      Property::Search::SortOrder::Calculator
+      "Property::Search::SortOrder::Calculator".constantize
     end
   end
 end

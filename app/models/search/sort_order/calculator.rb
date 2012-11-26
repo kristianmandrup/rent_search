@@ -13,11 +13,16 @@ class Search::SortOrder
     include_concern :validator, for: 'Search::SortOrder::Calculator::Direction'
 
     # Calculates the new sort order given a SortOrder object
-    def initialize sort_order
+    def initialize sort_order = nil
+      sort_order ||= Search::SortOrder.new
       unless sort_order.kind_of?(Search::SortOrder)
         raise ArgumentError, "Must be a Search::SortOrder" 
       end
       @sort_order = sort_order
+    end
+
+    def self.build field, dir
+      self.new Search::SortOrder.new(field, dir)
     end
 
     alias_method :sort_field,     :field

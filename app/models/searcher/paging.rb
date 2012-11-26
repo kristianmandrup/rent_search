@@ -3,12 +3,12 @@ class Searcher
     extend ActiveSupport::Concern
 
     def pager
-      puts "pager_options: #{pager_options}"
+      # puts "pager_options: #{pager_options}"
       @pager ||= Searcher::Pager.new pager_options
     end
 
     def pager_options
-      puts "display_options: #{display_options} - #{Searcher::Pager.options_allowed}"
+      # puts "display_options: #{display_options} - #{Searcher::Pager.options_allowed}"
       display_options.keep_keys(Searcher::Pager.options_allowed)
     end
 

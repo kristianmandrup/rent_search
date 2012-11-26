@@ -3,7 +3,7 @@ class Searcher
     attr_reader :sort_order
 
     def initialize *args
-      options = options_normalizer(*args).normalize
+      options = options_normalizer(*args).normalize || default_options
 
       field     = options[:field]
       direction = options[:direction]      
@@ -39,6 +39,10 @@ class Searcher
 
     def selected_order
       sort_order ? {field => direction} : {}
+    end
+
+    def default_options
+      {field: default_order.keys.first, direction: default_order.values.first}
     end
 
     def default_order

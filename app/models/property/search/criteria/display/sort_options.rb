@@ -6,10 +6,23 @@ class Property::Search::Criteria::Display
 
     # order must be a SortOrder
     def initialize sort_order = nil
-      unless sort_order.kind_of?(Property::Search::SortOrder)
-        raise ArgumentError, "Must be a SortOrder, was: #{sort_order}"
-      end
+      self.sort_order = sort_order
+    end
+
+    def self.build_default
+      self.new
+    end
+
+    def sort_order= sort_order
+      sort_order ||= sort_order_class.new
+      unless sort_order.kind_of?(sort_order_class)
+        raise ArgumentError, "Must be a #{sort_order_class}, was: #{sort_order}"
+      end      
       @sort_order = sort_order
+    end
+
+    def sort_order_class
+      "Property::Search::SortOrder".constantize
     end
 
     # SEE: http://stackoverflow.com/questions/11050128/generate-html-select-with-title-inside-each-option-to-apply-the-msdropdown-p
@@ -26,11 +39,15 @@ class Property::Search::Criteria::Display
       self.sort_order = sort_order if sort_order
 
       # options_hash - retrieved from YAML file
-      list = options_hash.inject([]) do |res, option|        
-        res << calculator(option).select_option
+      list = options_hash.inject([]) do |res, option|  
+        select_option = calculator(option).select_option
+        res << select_option
         res
       end
     end
+    alias_method :options, :selector_options 
+
+    delegate :allow_any_field?, to: :sort_order
 
     def calculator option
       Calculator.new sort_order, option

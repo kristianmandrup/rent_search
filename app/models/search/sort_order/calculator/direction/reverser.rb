@@ -9,6 +9,7 @@ module Search::SortOrder::Calculator::Direction
 
     def reverse!
       @direction = reverse
+      normalize!
       self
     end
   end

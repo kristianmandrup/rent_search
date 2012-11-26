@@ -7,12 +7,12 @@ class Search
     # The name can be mapped to a specific field_name
     #   date -> publish_date
 
-    include_concern :reverser, for: 'Search::SortOrder::Calculator::Direction'
+    include_concern :reverser, :normalizer,   for: 'Search::SortOrder::Calculator::Direction'
 
     # TODO: use OptionsNormalizer
     def initialize *args
-      options = options_normalizer(*args).normalize
-      name = options[:field]
+      options   = options_normalizer(*args).normalize || default_options
+      name      = options[:field]
       direction = options[:direction]
 
       name       ||= default_field
@@ -37,6 +37,10 @@ class Search
       valid_field?(field)
     end
 
+    def default_options
+      {field: :created_at, direction: :asc}
+    end
+
     # TODO: Should be possible to simplify all this!
     def calc!
       calculator.calc!
@@ -56,9 +60,9 @@ class Search
       @field = field
     end
 
-    def to_s
-      "name: #{name}; field: #{field}; direction: #{direction}"
-    end
+    # def to_s
+    #   "name: #{name}; field: #{field}; direction: #{direction}"
+    # end
 
     def label name
       name
@@ -69,7 +73,6 @@ class Search
     end    
 
     def allow_any_field?
-      return calculator.allow_any_field? if calculator
       true
     end
 
@@ -82,10 +85,10 @@ class Search
     alias_method :sort_field,     :field
     alias_method :sort_direction, :direction
 
-    delegate :desc_fields, :asc_fields,              to: :calculator
-    delegate :default_field, :default_direction,     to: :calculator
-    delegate :sort_fields,   :sort_fields_for,       to: :calculator
-    delegate :valid_direction?, :valid_field?,       to: :calculator
+    delegate :desc_fields, :asc_fields, :default_field_directions,  to: :calculator
+    delegate :default_field, :default_direction,          to: :calculator
+    delegate :sort_fields,   :sort_fields_for,            to: :calculator
+    delegate :valid_direction?, :valid_field?,            to: :calculator
 
     def calculator
       @calculator ||= calculator_class.new self

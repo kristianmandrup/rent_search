@@ -10,6 +10,8 @@ class Searcher
       def normalize
         @args.flatten! if args.first.kind_of?(Array)
         options = case args.first
+        when NilClass
+          nil
         when Hash
           hash = args.first
           hash.inject({}) do |h, (k, v)|

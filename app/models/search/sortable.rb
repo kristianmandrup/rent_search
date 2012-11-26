@@ -6,5 +6,11 @@ class Search
     included do
       embeds_one :sort, class_name: 'Search::Sort'
     end
+
+    attr_reader :sorting
+
+    def sorting= sorting
+      @sorting = sorting
+    end    
   end
 end

@@ -56,6 +56,18 @@ describe Property::Search::Criteria::Display::SortOptions::Calculator do
   end
 
   specify do
+    subject.default_field_directions[:cost].should == :asc
+  end
+
+  specify do
+    subject.default_field_directions[:date].should == :asc
+  end
+
+  specify do
+    subject.default_field_directions[:rentability].should == :desc
+  end
+
+  specify do
     subject.sort_order.desc_fields.should_not be_empty
   end
 
@@ -98,7 +110,9 @@ describe Property::Search::Criteria::Display::SortOptions::Calculator do
   end
 
   describe 'direction_labels' do
-    its(:direction_labels) { should == [:date, :rentability, :cost, :cost_m2, :size, :rooms] }
+    its(:direction) { should == :asc }
+
+    its(:direction_labels) { should == [:date, :cost, :cost_m2, :size, :rooms] }
   end   
 
   context 'date desc' do
