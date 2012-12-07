@@ -28,6 +28,11 @@ describe Property do
       puts "Subject: #{subject}"
     end
 
+    describe 'costs' do
+      specify { subject.costs.should be_a Property::Costs }
+      specify { subject.entrance_cost.should > 0 }
+    end
+
     describe 'dates' do
       subject { dates }
 

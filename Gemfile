@@ -58,8 +58,12 @@ gem 'geonames_local', github: 'nofxx/geonames_local' # Downloads and store Geona
 
 # Enums for mongoid!
 gem 'symbolize', '~> 4.2', github: 'nofxx/symbolize'
+gem 'sorcery', path: '/Users/kmandrup/private/repos/sorcery' # github: 'kristianmandrup/sorcery'
+gem 'stringex', path: '/Users/kmandrup/private/repos/stringex' #github: 'kristianmandrup/stringex'
 
 gem 'simple_range_validator', '~> 0.2.1'
+
+gem 'mongoid_rateable', github: 'kristianmandrup/mongoid_rateable'
 
 # UI
 gem 'apotomo', '~> 1.2.3', path: '/Users/kmandrup/private/repos/apotomo' # git: 'git://github.com/kristianmandrup/apotomo.git' 

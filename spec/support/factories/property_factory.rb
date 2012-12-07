@@ -7,7 +7,7 @@ FactoryGirl.define do
 		end
 
 		trait :valid do
-			size
+			sqm
 		  rooms
 		  cost
 		  location 'Copenhagen'
