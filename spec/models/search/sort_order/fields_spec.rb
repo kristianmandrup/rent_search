@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class WithFields
-  include Search::SortOrder::Calculator::Fields
+  include BaseSearch::SortOrder::Calculator::Fields
 
   def desc_fields
     %w{cost}
@@ -12,7 +12,7 @@ class WithFields
   end
 end  
 
-describe Search::SortOrder::Calculator::Fields do
+describe BaseSearch::SortOrder::Calculator::Fields do
   subject { fields }
 
   let(:fields) { WithFields.new }
@@ -22,7 +22,7 @@ describe Search::SortOrder::Calculator::Fields do
   end
 
   describe 'sort_fields' do
-    specify { subject.sort_fields.should include('date', 'cost') }
+    specify { subject.sort_fields.map(&:to_s).should include('date', 'cost') }
 
     specify { subject.sort_fields.size.should == 2 }
   end

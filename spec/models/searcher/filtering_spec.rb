@@ -13,7 +13,7 @@ describe Searcher::Filtering do
 
   describe 'filter' do
     specify do
-      subject.filter.should be_a Search::Filter
+      subject.filter.should be_a BaseSearch::Filter
     end
   end
 end

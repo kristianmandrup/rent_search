@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-class Searchy < Search
+class Searchy < BaseSearch
   def self.all_fields
     %w{cost size rooms}
   end
 end
 
-describe Search::Filter do
+describe BaseSearch::Filter do
   subject { filter }
 
   let(:hash) do
@@ -18,7 +18,7 @@ describe Search::Filter do
   end
 
   context 'filter' do
-    let(:filter) { Search::Filter.new }
+    let(:filter) { BaseSearch::Filter.new }
   end
 
   context 'Hash' do
@@ -27,7 +27,7 @@ describe Search::Filter do
     end
 
     context 'only filter' do
-      let(:filter) { Search::Filter.new only: ['cost'] }
+      let(:filter) { BaseSearch::Filter.new only: ['cost'] }
 
       it 'should remove cost' do
         result.should_not include(:cost)
@@ -39,7 +39,7 @@ describe Search::Filter do
     end
 
     context 'except filter' do
-      let(:filter) { Search::Filter.new except: ['cost'] }
+      let(:filter) { BaseSearch::Filter.new except: ['cost'] }
 
       it 'should keep cost' do
         result.should include(:cost)
@@ -57,7 +57,7 @@ describe Search::Filter do
     end
 
     context 'only filter' do
-      let(:filter) { Search::Filter.new only: ['cost'] }
+      let(:filter) { BaseSearch::Filter.new only: ['cost'] }
 
       it 'should remove cost' do
         result.should_not include(:cost)
@@ -69,7 +69,7 @@ describe Search::Filter do
     end
 
     context 'except filter' do
-      let(:filter) { Search::Filter.new except: ['cost'] }
+      let(:filter) { BaseSearch::Filter.new except: ['cost'] }
 
       it 'should keep cost' do
         result.should include(:cost)

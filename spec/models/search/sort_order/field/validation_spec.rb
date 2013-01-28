@@ -1,14 +1,18 @@
 require 'spec_helper'
 
 class Validating
-  include Search::SortOrder::Calculator::Field::Validation
+  include BaseSearch::SortOrder::Calculator::Field::Validation
+
+  def allow_any_field?
+    false
+  end
 
   def sort_fields
     %w{date cost}
   end
 end
 
-describe Search::SortOrder::Calculator::Field::Validation do
+describe BaseSearch::SortOrder::Calculator::Field::Validation do
   subject { validating }
 
   let(:validating) { Validating.new }

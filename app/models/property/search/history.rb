@@ -1,4 +1,4 @@
-class Property::Search
-  class History < Search::History
+class Property::Search < BaseSearch
+  class History < BaseSearch::History
   end
 end

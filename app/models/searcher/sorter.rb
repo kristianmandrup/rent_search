@@ -8,13 +8,13 @@ class Searcher
       field     = options[:field]
       direction = options[:direction]      
 
-      @sort_order ||= Search::SortOrder.new(field, direction)
+      @sort_order ||= sort_order_class.new(field, direction)
     end
 
     delegate :field, :direction, to: :sort_order
 
     def options_normalizer *args
-      @options_normalizer ||= Searcher::Sort::OptionsNormalizer.new args.flatten
+      @options_normalizer ||= normalizer_class.new args.flatten
     end
 
     def calculated_sort_order
@@ -47,6 +47,16 @@ class Searcher
 
     def default_order
       {created_at: :asc}
+    end
+
+    protected
+
+    def normalizer_class
+      Searcher::Sort::OptionsNormalizer
+    end
+
+    def sort_order_class
+      ::BaseSearch::SortOrder
     end
   end
 end

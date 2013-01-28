@@ -1,13 +1,11 @@
-class Property
-  class Search
-    class Manager < ::Search::Manager
-      def initialize  user, storage = nil
-        super
-      end
+class Property::Search < BaseSearch
+  class Manager < BaseSearch::Manager
+    def initialize  user, storage = nil
+      super
+    end
 
-      def search_class
-        Property::Search
-      end
+    def search_class
+      Property::Search
     end
   end
 end

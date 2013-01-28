@@ -26,7 +26,7 @@ class Searcher
 
     # uses sort_options
     def sorter_options
-      sort_options.keep_only(Searcher::Sorter.options_allowed)
+      sort_options.keep_keys!(Searcher::Sorter.options_allowed)
     end
 
     def sort_options

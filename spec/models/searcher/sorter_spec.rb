@@ -9,7 +9,7 @@ describe Searcher::Sorter do
 
   describe 'init' do
     specify do
-      subject.sort_order.should be_a Search::SortOrder
+      subject.sort_order.should be_a BaseSearch::SortOrder
     end
 
     specify do

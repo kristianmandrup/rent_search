@@ -1,21 +1,21 @@
 require 'spec_helper'
 
-describe Search::Sorting::Mapper do
+describe BaseSearch::Sorting::Mapper do
   subject { mapper }
 
-  let(:clazz) { Search::Sorting::Mapper }
+  let(:clazz) { BaseSearch::Sorting::Mapper }
 
   describe 'init' do
     let(:mapper) { clazz.new 'cost::asc' }
 
-    its(:sort_order) { should be_a Search::SortOrder }
+    its(:sort_order) { should be_a BaseSearch::SortOrder }
   end
 
   describe 'field' do
     context 'not calculated' do
       let(:mapper) { clazz.new 'cost::asc' }
 
-      its(:field) { should == 'cost' }      
+      specify { subject.field.to_sym.should == :cost }
     end
   end
 
@@ -23,7 +23,7 @@ describe Search::Sorting::Mapper do
     context 'not calculated' do
       let(:mapper) { clazz.new 'cost::asc' }
 
-      its(:direction) { should == 'asc' }      
+      specify { subject.direction.to_sym.should == :asc }
     end
   end
 
@@ -45,7 +45,7 @@ describe Search::Sorting::Mapper do
   describe 'calculator' do
     let(:mapper) { clazz.new 'cost::asc' }    
 
-    its(:calculator) { should be_a Search::SortOrder::Calculator }
+    its(:calculator) { should be_a BaseSearch::SortOrder::Calculator }
 
     specify do
       subject.calculator.sort_order.should == mapper.sort_order

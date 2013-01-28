@@ -1,4 +1,4 @@
-class Property::Search
+class Property::Search < BaseSearch
   class Preferences
     include ActiveModel::Validations
 

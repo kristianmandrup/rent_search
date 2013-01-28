@@ -11,14 +11,16 @@ module SearchSetup
     before do 
       property_count.times do |n|
         hash = addresses[n].symbolize_keys.merge(rooms: rooms, price: price, title: 'new prop')
-        Property.create hash
-        property.active_rental_period = RentPeriod.new period: timespan
+        property = Property.create hash
+        puts property.inspect
+
+        property.period = Property::Period.create dates: ::Timespan.new(:duration => 2.days), property: property
       end
     end    
   end
 
   def timespan
-    Timespan.new from: rand(5).days.ago, to: rand(15).days.from_now
+    ::Timespan.new from: rand(5).days.ago, duration: 15.days
   end
 
   def rooms
@@ -75,7 +77,7 @@ module CriteriaSpecHelper
   def untill; from + 1.month; end
 
   def search_period
-    ::Timespan.new(start_date: Date.today, duration: 1.month)
+    ::Timespan.new start_date: Date.today, duration: 1.month
   end
 
   def search_hash

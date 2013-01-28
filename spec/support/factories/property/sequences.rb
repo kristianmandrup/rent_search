@@ -14,5 +14,6 @@ FactoryGirl.define do
   sequence(:rentability)  { rand(3) }
   sequence(:rating)       { 1 + rand(5) }
 
-  sequence(:picture)      { rand(7) +1 }
+  # sequence(:picture)      { rand(7) +1 }
+  sequence(:picture)      { ['apartment', 'cozy-home', 'flat-in-copenhagen', 'furnished-apartment', 'large-apartment', 'long-property', 'modern-apartment', 'nice-flat', 'radhus'].sample }
 end

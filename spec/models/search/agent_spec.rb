@@ -1,23 +1,46 @@
 require 'spec_helper'
 
-class SearchyAgent < Search
+class SearchyAgent < BaseSearch
   def self.agent_class
-    Search::Agent
+    SearchyAgent
   end
 
-  include_concern :agentize, for: 'Search'
+  include_concern :agentize, for: 'BaseSearch'
 end
 
+class Searchick
+  include BasicDocument
 
-describe Search::Agent do
+  belongs_to :agent, class_name: 'SearchyAgent'
+
+  field :cost
+  field :size
+  field :rooms
+end
+
+describe Searchick do
+  subject { search }
+
+  let(:search) do
+    Searchick.create cost: '7', size: 8, rooms: 1
+  end
+
+  describe 'creation' do
+    specify { search.should be_a Searchick }
+    its(:cost) { should == '7' }
+    its(:size) { should == 8 }
+  end  
+end
+
+describe BaseSearch::Agent do
   subject { agent }
 
   let(:agent) do
-    Search::Agent.create search: search
+    SearchyAgent.create search: search
   end
 
   let(:search) do
-    SearchyAgent.create cost: '7', size: 8, rooms: 1
+    Searchick.create cost: '7', size: 8, rooms: 1
   end
 
   context 'has search' do
@@ -25,30 +48,20 @@ describe Search::Agent do
       agent.search.should == search
     end
 
-    describe 'to_search' do
-      subject.to_search.should == search
-    end
+  #   describe 'to_search' do
+  #     its(:to_search) { should == search }
+  #   end
 
-    it "should not be empty" do
-      subject.empty?.should_not be_true
-    end
-
-    it 'should be valid'
-      subject.valid?.should be_false
-    end    
+  #   its(:empty?) { should_not be_true }
+  #   its(:valid?) { should be_true }
   end
 
-  context 'has no search' do
-    specify do
-      agent.search.should be_nil
-    end
+  # context 'has no search' do
+  #   specify do
+  #     agent.search.should be_nil
+  #   end
 
-    it "should be empty" do
-      subject.empty?.should be_true      
-    end
-
-    it 'should not be valid'
-      subject.valid?.should be_false
-    end
-  end
+  #   its(:empty?) { should be_true }
+  #   its(:valid?) { should be_false }
+  # end
 end

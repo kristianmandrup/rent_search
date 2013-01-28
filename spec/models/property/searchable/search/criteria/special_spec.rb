@@ -1,7 +1,8 @@
 # encoding: UTF-8
 require 'spec_helper'
+require 'models/property/search/criteria/spec_helper'
 
-describe SearchCriteria do
+describe Property::Search::Criteria do
   include SearchSetup
   
   context 'rules' do

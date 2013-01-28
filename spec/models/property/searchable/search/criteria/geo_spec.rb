@@ -1,10 +1,14 @@
 # encoding: UTF-8
 require 'spec_helper'
+require 'models/property/search/criteria/spec_helper'
 
-describe SearchCriteria do
+describe Property::Search::Geo do
   include SearchSetup
   
   context 'Properties within period 10 days from now' do
+
+    # Huh? Can I create this directly?
+    # Looks like Criteria takes a search as argument
     let(:search_criteria) do    
       create :search_criteria, near: 'Copenhagen', radius: 5 # 5 km
     end

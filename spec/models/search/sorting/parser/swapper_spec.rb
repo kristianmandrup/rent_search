@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class Swap  
-  include ::Search::Sorting::Parser::Swapper
+  include ::BaseSearch::Sorting::Parser::Swapper
 
   attr_reader :sort_field, :sort_direction
 
@@ -10,7 +10,7 @@ class Swap
   end
 end
 
-describe Search::Sorting::Parser::Swapper do
+describe BaseSearch::Sorting::Parser::Swapper do
   subject { swapper }
 
   let(:swapper) { Swap.new :asc, :cost }
@@ -19,8 +19,8 @@ describe Search::Sorting::Parser::Swapper do
   describe 'swap!' do
     it 'should swap field and dir' do
       swap = swapper.swap!
-      swap.sort_field.should == :cost
-      swap.sort_direction.should == :asc
+      swap.sort_field.to_sym.should == :asc
+      swap.sort_direction.to_sym.should == :cost
     end
   end
 

@@ -35,7 +35,7 @@ describe Searcher::Paging do
     end
 
     specify do
-      subject.pager_options.should == {}
+      subject.pager_options.should == {:page => 1}
     end
   end
 

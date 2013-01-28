@@ -1,4 +1,6 @@
-class Property::Search::Criteria
-  class Display
+class Property::Search < BaseSearch
+  class Criteria
+    class Display
+    end
   end
 end

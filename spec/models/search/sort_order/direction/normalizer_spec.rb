@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class Normalized
-  include Search::SortOrder::Calculator::Direction::Normalizer
+  include BaseSearch::SortOrder::Calculator::Direction::Normalizer
 
   attr_reader :field, :direction
 
@@ -11,7 +11,8 @@ class Normalized
 
   alias_method :sort_direction, :direction
   alias_method :sort_field, :field
-  
+  alias_method :name, :field
+
   def default_direction
     :asc
   end
@@ -42,7 +43,7 @@ class Normalized
   end
 end
 
-describe Search::SortOrder::Calculator::Direction::Normalizer do
+describe BaseSearch::SortOrder::Calculator::Direction::Normalizer do
   subject { normalizer }
 
   describe 'normalize!' do

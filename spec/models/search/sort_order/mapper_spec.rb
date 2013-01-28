@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Search::SortOrder::Calculator::Mapper do
+describe BaseSearch::SortOrder::Calculator::Mapper do
   subject { mapper }
 
-  let(:mapper) { Search::SortOrder::Calculator::Mapper.new }
+  let(:mapper) { BaseSearch::SortOrder::Calculator::Mapper.new }
 
   let(:sort_field) { :cost } 
   let(:sort_direction) { :desc }

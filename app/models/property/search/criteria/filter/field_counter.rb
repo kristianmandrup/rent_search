@@ -1,22 +1,24 @@
-class Property::Search::Criteria::Filter
-  class FieldCounter
-    attr_reader :search
+class Property::Search < BaseSearch
+  class Criteria::Filter
+    class FieldCounter
+      attr_reader :search
 
-    def initialize search
-      raise ArgumentError, "Must be a Mongoid::Criteria" unless search.kind_of?(Mongoid::Criteria)
-      @search = search
-    end
+      def initialize search
+        raise ArgumentError, "Must be a Mongoid::Criteria" unless search.kind_of?(Mongoid::Criteria)
+        @search = search
+      end
 
-    def field_selector
-      @field_selector ||= filter_class::FieldSelector.new search.to_a
-    end
+      def field_selector
+        @field_selector ||= filter_class::FieldSelector.new search.to_a
+      end
 
-    delegate :values_for, :selected_fields, to: :field_selector
+      delegate :values_for, :selected_fields, to: :field_selector
 
-    protected
+      protected
 
-    def filter_class
-      Property::Search::Criteria::Filter
+      def filter_class
+        Property::Search::Criteria::Filter
+      end
     end
   end
 end

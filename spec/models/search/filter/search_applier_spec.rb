@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-class SearchApply < Search
+class SearchApply < BaseSearch
   field :cost,  type: Integer, default: 1
   field :rooms, type: Integer, default: 1
   field :size,  type: Integer, default: 1
@@ -12,7 +12,7 @@ class SearchApply < Search
   end
 end
 
-describe Search::Filter::SearchApplier do
+describe BaseSearch::Filter::SearchApplier do
   subject { applier }
 
   def hash
@@ -27,21 +27,21 @@ describe Search::Filter::SearchApplier do
     hash
   end
 
-  let(:filter)        { Search::Filter.new }
-  let(:only_filter)   { Search::Filter.new only: ['cost'] }
-  let(:except_filter) { Search::Filter.new except: ['cost'] }
+  let(:filter)        { BaseSearch::Filter.new }
+  let(:only_filter)   { BaseSearch::Filter.new only: ['cost'] }
+  let(:except_filter) { BaseSearch::Filter.new except: ['cost'] }
 
   def result; applier.apply.set_fields; end
 
   context 'applier' do
     context 'non-search subject' do
       specify do 
-        expect { Search::Filter::SearchApplier.new filter, non_search }.to raise_error(ArgumentError)
+        expect { BaseSearch::Filter::SearchApplier.new filter, non_search }.to raise_error(ArgumentError)
       end
     end
 
     context 'empty filter' do
-      let(:applier) { Search::Filter::SearchApplier.new filter, search }
+      let(:applier) { BaseSearch::Filter::SearchApplier.new filter, search }
 
       # before do
       #   puts applier.to_s
@@ -62,7 +62,7 @@ describe Search::Filter::SearchApplier do
   end
 
   context 'only applier' do
-    let(:applier) { Search::Filter::SearchApplier.new only_filter, search }
+    let(:applier) { BaseSearch::Filter::SearchApplier.new only_filter, search }
 
     # before do
     #   puts applier.to_s
@@ -78,7 +78,7 @@ describe Search::Filter::SearchApplier do
   end
 
   context 'except applier' do
-    let(:applier) { Search::Filter::SearchApplier.new except_filter, search }
+    let(:applier) { BaseSearch::Filter::SearchApplier.new except_filter, search }
 
     # before do
     #   puts applier.to_s

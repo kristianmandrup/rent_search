@@ -31,6 +31,16 @@ describe Property do
     describe 'costs' do
       specify { subject.costs.should be_a Property::Costs }
       specify { subject.entrance_cost.should > 0 }
+
+      describe 'one_time' do
+        specify { subject.costs.one_time.should be_a Property::Costs::OneTime }
+      end
+
+      describe 'monthly' do
+        specify { subject.costs.monthly.should be_a Property::Costs::Monthly }
+
+        specify { subject.costs.should be_a Property::Costs::OneTime }
+      end
     end
 
     describe 'dates' do

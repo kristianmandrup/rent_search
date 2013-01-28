@@ -15,6 +15,25 @@ describe Searcher::Criteria do
     SearcherCriteria.new
   end
 
-  describe 'filter' do
+  describe 'criteria' do
+    its(:criteria) do 
+      should == {}
+    end
+  end
+
+  describe 'criteria_builder' do
+    its(:criteria_builder) { should be_a BaseSearch::Criteria }
+
+    specify do
+      subject.criteria_builder.options.should == {}
+    end
+  end
+
+  describe 'criteria_class' do
+    its(:criteria_class) { should == BaseSearch::Criteria }
+  end
+
+  describe 'filtered_criteria' do
+    pending 'TODO ?'
   end
 end

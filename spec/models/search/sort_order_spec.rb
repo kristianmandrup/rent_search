@@ -1,12 +1,16 @@
 require 'spec_helper'
 
-class SearchySortOrder < Search::SortOrder
+class SearchySortOrder < BaseSearch::SortOrder
   def calculator_class
     NiceSorter4
   end
+
+  def allow_any_field?
+    false
+  end
 end  
 
-class NiceSorter4 < Search::SortOrder::Calculator
+class NiceSorter4 < BaseSearch::SortOrder::Calculator
   def asc_fields
     %w{date cost created_at}
   end
@@ -14,9 +18,13 @@ class NiceSorter4 < Search::SortOrder::Calculator
   def desc_fields
     %w{cost}
   end
+
+  def allow_any_field?
+    false
+  end
 end
 
-describe Search::SortOrder do
+describe BaseSearch::SortOrder do
   subject { sort_order }
 
   context 'default sort order' do

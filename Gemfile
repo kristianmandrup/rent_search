@@ -65,8 +65,14 @@ gem 'simple_range_validator', '~> 0.2.1'
 
 gem 'mongoid_rateable', github: 'kristianmandrup/mongoid_rateable'
 
+gem 'rails-gallery',  '>= 0.3.0', path: '/Users/kmandrup/private/repos/rails-gallery-themed'
+
 # UI
 gem 'apotomo', '~> 1.2.3', path: '/Users/kmandrup/private/repos/apotomo' # git: 'git://github.com/kristianmandrup/apotomo.git' 
+
+gem 'draper', github: 'drapergem/draper'
+
+gem 'decent_exposure', github: 'voxdolo/decent_exposure'
 
 gem 'formtastic'
 gem 'haml'

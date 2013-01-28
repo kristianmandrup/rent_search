@@ -16,7 +16,7 @@ class SearcherSorting
   end
 end
 
-class Calculator1 < ::Search::SortOrder::Calculator
+class Calculator1 < ::BaseSearch::SortOrder::Calculator
   def asc_fields
     %w{cost size}
   end

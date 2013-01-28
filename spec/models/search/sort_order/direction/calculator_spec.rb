@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class NiceSorter < Search::SortOrder::Calculator
+class NiceSorter < BaseSearch::SortOrder::Calculator
   def asc_fields
     %w{date cost created_at}
   end
@@ -14,19 +14,27 @@ class NiceSorter < Search::SortOrder::Calculator
   end
 end
 
-class SortyOrder < Search::SortOrder
+class SortyOrder < BaseSearch::SortOrder
   def calculator_class
     NiceSorter
   end
+
+  def allow_any_field?
+    false
+  end  
 end
 
 
-describe Search::SortOrder::Calculator::Direction::Calculator do
-  # subject { calculator }
+describe BaseSearch::SortOrder::Calculator::Direction::Calculator do
+  subject {calc_class.new sort_order }
 
   let(:order_clazz) { SortyOrder }
 
-  let(:calc_class) { Search::SortOrder::Calculator::Direction::Calculator }
+  let(:calc_class) { BaseSearch::SortOrder::Calculator::Direction::Calculator }
+
+  let(:sort_order) do
+    order_clazz.new :date, :desc
+  end
 
   describe 'init' do
     context 'invalid field' do

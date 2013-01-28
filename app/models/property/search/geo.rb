@@ -1,4 +1,4 @@
-class Property::Search
+class Property::Search < BaseSearch
   module Geo
     extend ActiveSupport::Concern
 

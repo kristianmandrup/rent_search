@@ -1,5 +1,5 @@
-class Property::Search
-  class SortOrder < Search::SortOrder
+class Property::Search  < BaseSearch
+  class SortOrder < BaseSearch::SortOrder
 
     # override generic :created_at
     def self.default_order

@@ -1,13 +1,28 @@
 require 'spec_helper'
 
-class SearchCriteria < Search::Criteria
+class SearchCriteria < BaseSearch::Criteria
   include BasicDocument
+
+  def initialize options = {}
+    puts "opts: #{options}"
+    super
+  end
 end
 
-describe Search::Criteria do
+describe BaseSearch::Criteria do
   subject { criteria }
 
-  let(:criteria) { SearchCriteria.new cost: 1 }
+  let(:options) do
+    {cost: 1}
+  end
 
-  pending 'TODO'
+  let(:criteria) { SearchCriteria.new options }
+
+  # its(:options) { should == options }
+
+  describe 'builder' do
+    it 'should not have a builder' do
+      expect { subject.builder }.to raise_error
+    end
+  end
 end

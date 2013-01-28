@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Search::Agentize do
+describe BaseSearch::Agentize do
   subject { agent }
 
   let(:agent) do

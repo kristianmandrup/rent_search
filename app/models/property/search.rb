@@ -1,5 +1,5 @@
 class Property
-  class Search < ::Search
+  class Search < BaseSearch
     include BasicDocument
 
     class GeoCodeError < StandardError; end
@@ -23,7 +23,7 @@ class Property
     # <% end %>    
 
     include_concerns :fields
-    include_concerns :hasher, :agentize, for: 'Search'
+    include_concerns :hasher, :agentize, for: 'BaseSearch'
 
     # belongs_to :agent, class_name: agent_class # 'Property::Agent'
 

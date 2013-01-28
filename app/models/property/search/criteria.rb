@@ -1,4 +1,4 @@
-class Property::Search
+class Property::Search < BaseSearch
   class Criteria
     attr_reader :search
 
@@ -6,7 +6,7 @@ class Property::Search
       @search = search
     end
 
-    def build search = nil
+    def construct search = nil
       @builder = builder_class.new search if search
 
       builder.where_criteria

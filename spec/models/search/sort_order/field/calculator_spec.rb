@@ -1,6 +1,10 @@
 require 'spec_helper'
 
-class NiceSorter2 < Search::SortOrder::Calculator
+class NiceSorter2 < BaseSearch::SortOrder::Calculator
+  def allow_any_field?
+    false
+  end
+
   def asc_fields
     %w{date cost}
   end
@@ -10,19 +14,23 @@ class NiceSorter2 < Search::SortOrder::Calculator
   end
 end
 
-class SortyOrder2 < Search::SortOrder
+class SortyOrder2 < BaseSearch::SortOrder
   def calculator_class
     NiceSorter2
   end
+
+  def allow_any_field?
+    false
+  end
 end
 
-describe Search::SortOrder::Calculator::Field::Calculator do
+describe BaseSearch::SortOrder::Calculator::Field::Calculator do
   subject { calculator }  
 
   let(:order_clazz) { SortyOrder2 }
 
   let(:calculator) do
-    Search::SortOrder::Calculator::Field::Calculator.new sort_order
+    BaseSearch::SortOrder::Calculator::Field::Calculator.new sort_order
   end
 
   let(:sort_order) do
@@ -39,6 +47,9 @@ describe Search::SortOrder::Calculator::Field::Calculator do
 
     it 'should not set valid field date but use default' do
       calculator.calc(:invalid)
+
+      calculator.valid_field?(:invalid).should be_false
+
       calculator.field_name.should == calculator.default_field
     end
   end

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Search::Sorting::Parser do
+describe BaseSearch::Sorting::Parser do
   subject { parser }
 
-  let(:clazz) { Search::Sorting::Parser }
+  let(:clazz) { BaseSearch::Sorting::Parser }
 
   describe 'init' do
     let(:parser) { clazz.new 'cost::asc' }

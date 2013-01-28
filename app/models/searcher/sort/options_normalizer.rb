@@ -25,6 +25,8 @@ class Searcher
             field, direction = direction, field
           end
 
+          direction ||= :asc
+
           {field: field.to_sym, direction: direction.to_sym }
         else
           raise ArgumentError, "Invalid sorter args: #{args}"

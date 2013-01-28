@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/drapergem/draper.git
+  revision: 7efeaa492b3ad866a439bdc21e538e6e12e235da
+  specs:
+    draper (1.0.0.beta3)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+
+GIT
   remote: git://github.com/kristianmandrup/classy_enum-mongoid.git
   revision: 095a03b39a26bd332ac923fa35709d0072995b5a
   specs:
@@ -54,6 +62,12 @@ GIT
   specs:
     symbolize (4.2.2)
 
+GIT
+  remote: git://github.com/voxdolo/decent_exposure.git
+  revision: 15186afa28bd757eb8b2a5a4a755cdc75ed7584c
+  specs:
+    decent_exposure (2.0.0)
+
 PATH
   remote: .
   specs:
@@ -108,6 +122,13 @@ PATH
       haml
 
 PATH
+  remote: /Users/kmandrup/private/repos/rails-gallery-themed
+  specs:
+    rails-gallery (0.3.1)
+      hashie (~> 1.2.0)
+      rails
+
+PATH
   remote: /Users/kmandrup/private/repos/sorcery
   specs:
     sorcery (0.7.13)
@@ -129,7 +150,7 @@ PATH
 PATH
   remote: /Users/kmandrup/private/repos/timespan
   specs:
-    timespan (0.5.2)
+    timespan (0.5.4)
       activesupport (>= 3.0.0)
       chronic
       chronic_duration
@@ -186,7 +207,7 @@ GEM
       railties (~> 3.0)
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
-    chronic (0.8.0)
+    chronic (0.9.0)
     chronic_duration (0.9.6)
       numerizer (~> 0.1.1)
     colorize (0.5.8)
@@ -273,7 +294,7 @@ GEM
       rake
       rspec (>= 2.9)
     moped (1.2.8)
-    multi_json (1.3.7)
+    multi_json (1.5.0)
     multipart-post (1.1.5)
     nokogiri (1.5.5)
     numerizer (0.1.1)
@@ -394,7 +415,9 @@ DEPENDENCIES
   cutter (~> 0.8.2)
   database_cleaner (~> 0.8)
   dbf
+  decent_exposure!
   delorean (~> 1.1.1)
+  draper!
   factory_girl_rails
   fakeweb
   fast-stemmer
@@ -420,6 +443,7 @@ DEPENDENCIES
   mongoid_search (>= 0.3.0)!
   origin-selectable_ext
   phone (~> 1.1)!
+  rails-gallery (>= 0.3.0)!
   rails-validators (~> 0.1.1)!
   rails_config_loader (~> 0.1.4)
   redis

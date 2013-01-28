@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Search::Filter::HashApplier do
+describe BaseSearch::Filter::HashApplier do
   subject { applier }
 
   def hash
@@ -17,21 +17,21 @@ describe Search::Filter::HashApplier do
     search
   end
 
-  let(:filter)        { Search::Filter.new }
-  let(:only_filter)   { Search::Filter.new only: ['cost'] }
-  let(:except_filter) { Search::Filter.new except: ['cost'] }
+  let(:filter)        { BaseSearch::Filter.new }
+  let(:only_filter)   { BaseSearch::Filter.new only: ['cost'] }
+  let(:except_filter) { BaseSearch::Filter.new except: ['cost'] }
 
   def result; applier.apply.keys; end
 
   context 'applier' do
     context 'non-hash subject' do
       specify do 
-        expect { Search::Filter::HashApplier.new filter, non_hash }.to raise_error(ArgumentError)
+        expect { BaseSearch::Filter::HashApplier.new filter, non_hash }.to raise_error(ArgumentError)
       end
     end
 
     context 'empty filter' do
-      let(:applier) { Search::Filter::HashApplier.new filter, hash }
+      let(:applier) { BaseSearch::Filter::HashApplier.new filter, hash }
 
       # before do
       #   puts applier.to_s
@@ -52,7 +52,7 @@ describe Search::Filter::HashApplier do
   end
 
   context 'only applier' do
-    let(:applier) { Search::Filter::HashApplier.new only_filter, hash }
+    let(:applier) { BaseSearch::Filter::HashApplier.new only_filter, hash }
 
     # before do
     #   puts applier.to_s
@@ -68,7 +68,7 @@ describe Search::Filter::HashApplier do
   end
 
   context 'except applier' do
-    let(:applier) { Search::Filter::HashApplier.new except_filter, hash }
+    let(:applier) { BaseSearch::Filter::HashApplier.new except_filter, hash }
 
     # before do
     #   puts applier.to_s

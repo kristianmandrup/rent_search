@@ -26,11 +26,17 @@ class Searcher
     #   filter: [:rooms, :size]
     #
     def filter
-      @filter ||= Search::Filter.new default_filter
+      @filter ||= filter_class.new default_filter
     end
 
     def default_filter
       {}
+    end
+
+    protected
+
+    def filter_class
+      ::BaseSearch::Filter
     end
   end
 end

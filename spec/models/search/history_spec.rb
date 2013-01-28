@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class Search
+class BaseSearch
   def self.all_fields
     %w{cost size rooms}
   end
@@ -15,23 +15,23 @@ class Search
   end
 end
 
-describe Search::History do
+describe BaseSearch::History do
   subject { history }
 
   let(:history) do
-    Search::History.new
+    BaseSearch::History.new
   end
 
   let(:search) do
-    Search.create cost: '7', size: 8, rooms: 1
+    BaseSearch.create cost: '7', size: 8, rooms: 1
   end
 
   let(:search_dup) do
-    Search.create cost: '7', size: 8, rooms: 1
+    BaseSearch.create cost: '7', size: 8, rooms: 1
   end
 
   let(:search2) do
-    Search.create cost: '2', size: 3, rooms: 2
+    BaseSearch.create cost: '2', size: 3, rooms: 2
   end
 
   specify do

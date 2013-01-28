@@ -1,6 +1,10 @@
 require 'timespan/mongoid'
 
 class Property
+  def self.period_class
+    ::Property::Period.to_s
+  end
+
   module Searchable
     extend ActiveSupport::Concern
     include BasicDoc
@@ -71,8 +75,8 @@ class Property
         self.costs = Property::Costs.new
       end
 
-      unless self.costs.monthly
-        self.costs.monthly = Property::Costs::Monthly.new
+      unless self.costs.configured?
+        self.costs.configure!
       end
 
       unless self.address

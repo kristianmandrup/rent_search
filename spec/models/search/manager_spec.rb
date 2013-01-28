@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-class FakeManager < Search::Manager
+class FakeManager < BaseSearch::Manager
   def search_class
     Property::Search
   end
 end
 
-describe Search::Manager do
+describe BaseSearch::Manager do
   subject { search_manager }
 
   let(:search_manager) { FakeManager.new user }
@@ -14,7 +14,7 @@ describe Search::Manager do
   let(:search)         { create :valid_property_search  }
 
   its(:user)    { should == user }
-  its(:history) { should be_a Search::History }
+  its(:history) { should be_a BaseSearch::History }
 
   let(:history_item) {
     search.as_hash

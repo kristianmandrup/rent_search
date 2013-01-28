@@ -6,8 +6,8 @@ class Searcher
       @criteria ||= {}
     end
 
-    def criteria_builder
-      @search_builder ||= criteria_class.new options
+    def criteria_builder options = {}
+      @criteria_builder ||= criteria_class.new options
     end  
 
     def criteria_class
@@ -21,5 +21,15 @@ class Searcher
     def search_criteria
       @search_criteria ||= search.as(:criteria_hash)
     end
+
+    protected
+
+    def criteria_class
+      BaseSearch::Criteria
+    end
+
+    def search_class
+      BaseSearch
+    end      
   end
 end

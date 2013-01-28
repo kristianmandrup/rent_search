@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class SearchWithHasher
-  include_concern Search::Hasher, for: ''
+  include_concern BaseSearch::Hasher, for: ''
 
   def subject_class
     self.class
@@ -12,7 +12,7 @@ class SearchWithHasher
   end
 end
 
-describe Search::Hasher do
+describe BaseSearch::Hasher do
   subject { hasher }
 
   let(:hasher) { SearchWithHasher.new }

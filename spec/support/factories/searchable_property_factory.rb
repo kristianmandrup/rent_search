@@ -5,6 +5,10 @@ FactoryGirl.define do
       # property.period = Property::Period.create_it! start_date: Date.today, duration: (rand(5) +1).months      
       FactoryGirl.create :rent_period, property: property unless property.period
 
+      # puts "doing the fucking shit!"
+
+      # property.picture = 'fuck you bastard'
+
       if property.type == 'room'
         property.rooms = 1
         property.sqm = 6 + rand(5) * 5 # 6 - 26

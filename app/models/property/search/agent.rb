@@ -1,7 +1,5 @@
-class Property
-  class Search < ::Search
-    class Agent < ::Search::Agent  
-      include BasicDocument
-    end
+class Property::Search < BaseSearch
+  class Agent < BaseSearch::Agent  
+    include BasicDocument
   end
 end
